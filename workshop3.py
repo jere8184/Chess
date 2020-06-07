@@ -1,5 +1,5 @@
 import pygame
-print(dir(pygame))
+# print(dir(pygame))
 import chessv6
 
 pygame.init()
@@ -73,7 +73,7 @@ pawn_f_b_gui = pawn_gui(chessv6.pawn_f_b,"black")
 pawn_g_b_gui = pawn_gui(chessv6.pawn_g_b,"black")
 pawn_h_b_gui = pawn_gui(chessv6.pawn_h_b,"black")
 
-pawn_gui_tuple = (pawn_a_w_gui,pawn_b_w_gui,pawn_c_w_gui,pawn_d_w_gui,pawn_e_w_gui,pawn_f_w_gui,pawn_g_w_gui,pawn_h_w_gui,pawn_a_b_gui,pawn_b_b_gui,pawn_c_b_gui,pawn_d_b_gui,pawn_e_b_gui,pawn_f_b_gui,pawn_g_b_gui,pawn_h_b_gui)
+# pawn_gui_tuple = (pawn_a_w_gui,pawn_b_w_gui,pawn_c_w_gui,pawn_d_w_gui,pawn_e_w_gui,pawn_f_w_gui,pawn_g_w_gui,pawn_h_w_gui,pawn_a_b_gui,pawn_b_b_gui,pawn_c_b_gui,pawn_d_b_gui,pawn_e_b_gui,pawn_f_b_gui,pawn_g_b_gui,pawn_h_b_gui)
 
 class queen_gui:
 
@@ -201,7 +201,25 @@ class square_gui:
             if self.x+100 > pygame.mouse.get_pos()[0] > self.x and self.y+100 > pygame.mouse.get_pos()[1] > self.y :
                 for piece in chessv6.piece_tuple:
                     if self.coordinate in piece.potential_attack_list or self.coordinate in piece.potential_move_list:
-                        if piece.piece_type =="w_pawn" or piece.piece_type == "b_pawn":
+                        if piece.piece_type =="w_pawn" and chessv6.whos_turn == "white":
+                            if self.coordinate in piece.potential_move_coordinate and piece.selected == True:
+                                piece.move()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_move_of_two_squares_coordinate and piece.selected == True:
+                                piece.move_of_two_squares()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_capture_up_coordinate and piece.selected == True:
+                                piece.capture_up()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_capture_down_coordinate and piece.selected == True:
+                                piece.capture_down()
+                                gui_turn()
+                                print(chessv6.turn())
+
+                        if piece.piece_type == "b_pawn" and chessv6.whos_turn == "black":
 
                             if self.coordinate in piece.potential_move_coordinate and piece.selected == True:
                                 piece.move()
@@ -220,7 +238,7 @@ class square_gui:
                                 gui_turn()
                                 print(chessv6.turn())
 
-                        if piece.piece_type == "w_queen" or piece.piece_type == "b_queen":
+                        if piece.piece_type == "w_queen" and chessv6.whos_turn == "white":
 
                             if self.coordinate in piece.potential_move_up_coordinate and piece.selected == True:
                                 piece.move_up()
@@ -691,7 +709,7 @@ class square_gui:
                                 gui_turn()
                                 print(chessv6.turn())
 
-                        if piece.piece_type == "w_rook" or piece.piece_type == "b_rook":
+                        if piece.piece_type == "b_queen" and chessv6.whos_turn == "black":
 
                             if self.coordinate in piece.potential_move_up_coordinate and piece.selected == True:
                                 piece.move_up()
@@ -926,8 +944,6 @@ class square_gui:
                                 piece.attack_left_7()
                                 gui_turn()
                                 print(chessv6.turn())
-
-                        if piece.piece_type == "w_bishop" or piece.piece_type == "b_bishop":
 
                             if self.coordinate in piece.potential_move_up_right_coordinate and piece.selected == True:
                                 piece.move_up_right()
@@ -1164,7 +1180,953 @@ class square_gui:
                                 gui_turn()
                                 print(chessv6.turn())
 
-                        if piece.piece_type == "w_king" or piece.piece_type == "b_king":
+                        if piece.piece_type == "w_rook" and chessv6.whos_turn == "white":
+
+                            if self.coordinate in piece.potential_move_up_coordinate and piece.selected == True:
+                                piece.move_up()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_move_up_2_coordinate and piece.selected == True:
+                                piece.move_up_2()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_move_up_3_coordinate and piece.selected == True:
+                                piece.move_up_3()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_move_up_4_coordinate and piece.selected == True:
+                                piece.move_up_4()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_move_up_5_coordinate and piece.selected == True:
+                                piece.move_up_5()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_move_up_6_coordinate and piece.selected == True:
+                                piece.move_up_6()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_move_up_7_coordinate and piece.selected == True:
+                                piece.move_up_7()
+                                gui_turn()
+                                print(chessv6.turn())
+
+                            if self.coordinate in piece.potential_attack_up_coordinate and piece.selected == True:
+                                piece.attack_up()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_attack_up_2_coordinate and piece.selected == True:
+                                piece.attack_up_2()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_attack_up_3_coordinate and piece.selected == True:
+                                piece.attack_up_3()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_attack_up_4_coordinate and piece.selected == True:
+                                piece.attack_up_4()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_attack_up_5_coordinate and piece.selected == True:
+                                piece.attack_up_5()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_attack_up_6_coordinate and piece.selected == True:
+                                piece.attack_up_6()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_attack_up_7_coordinate and piece.selected == True:
+                                piece.attack_up_7()
+                                gui_turn()
+                                print(chessv6.turn())
+
+                            if self.coordinate in piece.potential_move_down_coordinate and piece.selected == True:
+                                piece.move_down()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_move_down_2_coordinate and piece.selected == True:
+                                piece.move_down_2()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_move_down_3_coordinate and piece.selected == True:
+                                piece.move_down_3()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_move_down_4_coordinate and piece.selected == True:
+                                piece.move_down_4()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_move_down_5_coordinate and piece.selected == True:
+                                piece.move_down_5()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_move_down_6_coordinate and piece.selected == True:
+                                piece.move_down_6()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_move_down_7_coordinate and piece.selected == True:
+                                piece.move_down_7()
+                                gui_turn()
+                                print(chessv6.turn())
+
+                            if self.coordinate in piece.potential_attack_down_coordinate and piece.selected == True:
+                                piece.attack_down()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_attack_down_2_coordinate and piece.selected == True:
+                                piece.attack_down_2()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_attack_down_3_coordinate and piece.selected == True:
+                                piece.attack_down_3()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_attack_down_4_coordinate and piece.selected == True:
+                                piece.attack_down_4()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_attack_down_5_coordinate and piece.selected == True:
+                                piece.attack_down_5()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_attack_down_6_coordinate and piece.selected == True:
+                                piece.attack_down_6()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_attack_down_7_coordinate and piece.selected == True:
+                                piece.attack_down_7()
+                                gui_turn()
+                                print(chessv6.turn())
+
+
+                            if self.coordinate in piece.potential_move_right_coordinate and piece.selected == True:
+                                piece.move_right()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_move_right_2_coordinate and piece.selected == True:
+                                piece.move_right_2()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_move_right_3_coordinate and piece.selected == True:
+                                piece.move_right_3()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_move_right_4_coordinate and piece.selected == True:
+                                piece.move_right_4()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_move_right_5_coordinate and piece.selected == True:
+                                piece.move_right_5()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_move_right_6_coordinate and piece.selected == True:
+                                piece.move_right_6()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_move_right_7_coordinate and piece.selected == True:
+                                piece.move_right_7()
+                                gui_turn()
+                                print(chessv6.turn())
+
+                            if self.coordinate in piece.potential_attack_right_coordinate and piece.selected == True:
+                                piece.attack_right()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_attack_right_2_coordinate and piece.selected == True:
+                                piece.attack_right_2()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_attack_right_3_coordinate and piece.selected == True:
+                                piece.attack_right_3()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_attack_right_4_coordinate and piece.selected == True:
+                                piece.attack_right_4()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_attack_right_5_coordinate and piece.selected == True:
+                                piece.attack_right_5()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_attack_right_6_coordinate and piece.selected == True:
+                                piece.attack_right_6()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_attack_right_7_coordinate and piece.selected == True:
+                                piece.attack_right_7()
+                                gui_turn()
+                                print(chessv6.turn())
+
+
+                            if self.coordinate in piece.potential_move_left_coordinate and piece.selected == True:
+                                piece.move_left()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_move_left_2_coordinate and piece.selected == True:
+                                piece.move_left_2()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_move_left_3_coordinate and piece.selected == True:
+                                piece.move_left_3()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_move_left_4_coordinate and piece.selected == True:
+                                piece.move_left_4()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_move_left_5_coordinate and piece.selected == True:
+                                piece.move_left_5()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_move_left_6_coordinate and piece.selected == True:
+                                piece.move_left_6()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_move_left_7_coordinate and piece.selected == True:
+                                piece.move_left_7()
+                                gui_turn()
+                                print(chessv6.turn())
+
+                            if self.coordinate in piece.potential_attack_left_coordinate and piece.selected == True:
+                                piece.attack_left()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_attack_left_2_coordinate and piece.selected == True:
+                                piece.attack_left_2()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_attack_left_3_coordinate and piece.selected == True:
+                                piece.attack_left_3()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_attack_left_4_coordinate and piece.selected == True:
+                                piece.attack_left_4()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_attack_left_5_coordinate and piece.selected == True:
+                                piece.attack_left_5()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_attack_left_6_coordinate and piece.selected == True:
+                                piece.attack_left_6()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_attack_left_7_coordinate and piece.selected == True:
+                                piece.attack_left_7()
+                                gui_turn()
+                                print(chessv6.turn())
+
+                        if piece.piece_type == "b_rook" and chessv6.whos_turn == "black":
+
+                            if self.coordinate in piece.potential_move_up_coordinate and piece.selected == True:
+                                piece.move_up()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_move_up_2_coordinate and piece.selected == True:
+                                piece.move_up_2()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_move_up_3_coordinate and piece.selected == True:
+                                piece.move_up_3()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_move_up_4_coordinate and piece.selected == True:
+                                piece.move_up_4()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_move_up_5_coordinate and piece.selected == True:
+                                piece.move_up_5()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_move_up_6_coordinate and piece.selected == True:
+                                piece.move_up_6()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_move_up_7_coordinate and piece.selected == True:
+                                piece.move_up_7()
+                                gui_turn()
+                                print(chessv6.turn())
+
+                            if self.coordinate in piece.potential_attack_up_coordinate and piece.selected == True:
+                                piece.attack_up()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_attack_up_2_coordinate and piece.selected == True:
+                                piece.attack_up_2()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_attack_up_3_coordinate and piece.selected == True:
+                                piece.attack_up_3()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_attack_up_4_coordinate and piece.selected == True:
+                                piece.attack_up_4()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_attack_up_5_coordinate and piece.selected == True:
+                                piece.attack_up_5()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_attack_up_6_coordinate and piece.selected == True:
+                                piece.attack_up_6()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_attack_up_7_coordinate and piece.selected == True:
+                                piece.attack_up_7()
+                                gui_turn()
+                                print(chessv6.turn())
+
+                            if self.coordinate in piece.potential_move_down_coordinate and piece.selected == True:
+                                piece.move_down()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_move_down_2_coordinate and piece.selected == True:
+                                piece.move_down_2()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_move_down_3_coordinate and piece.selected == True:
+                                piece.move_down_3()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_move_down_4_coordinate and piece.selected == True:
+                                piece.move_down_4()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_move_down_5_coordinate and piece.selected == True:
+                                piece.move_down_5()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_move_down_6_coordinate and piece.selected == True:
+                                piece.move_down_6()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_move_down_7_coordinate and piece.selected == True:
+                                piece.move_down_7()
+                                gui_turn()
+                                print(chessv6.turn())
+
+                            if self.coordinate in piece.potential_attack_down_coordinate and piece.selected == True:
+                                piece.attack_down()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_attack_down_2_coordinate and piece.selected == True:
+                                piece.attack_down_2()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_attack_down_3_coordinate and piece.selected == True:
+                                piece.attack_down_3()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_attack_down_4_coordinate and piece.selected == True:
+                                piece.attack_down_4()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_attack_down_5_coordinate and piece.selected == True:
+                                piece.attack_down_5()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_attack_down_6_coordinate and piece.selected == True:
+                                piece.attack_down_6()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_attack_down_7_coordinate and piece.selected == True:
+                                piece.attack_down_7()
+                                gui_turn()
+                                print(chessv6.turn())
+
+
+                            if self.coordinate in piece.potential_move_right_coordinate and piece.selected == True:
+                                piece.move_right()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_move_right_2_coordinate and piece.selected == True:
+                                piece.move_right_2()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_move_right_3_coordinate and piece.selected == True:
+                                piece.move_right_3()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_move_right_4_coordinate and piece.selected == True:
+                                piece.move_right_4()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_move_right_5_coordinate and piece.selected == True:
+                                piece.move_right_5()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_move_right_6_coordinate and piece.selected == True:
+                                piece.move_right_6()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_move_right_7_coordinate and piece.selected == True:
+                                piece.move_right_7()
+                                gui_turn()
+                                print(chessv6.turn())
+
+                            if self.coordinate in piece.potential_attack_right_coordinate and piece.selected == True:
+                                piece.attack_right()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_attack_right_2_coordinate and piece.selected == True:
+                                piece.attack_right_2()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_attack_right_3_coordinate and piece.selected == True:
+                                piece.attack_right_3()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_attack_right_4_coordinate and piece.selected == True:
+                                piece.attack_right_4()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_attack_right_5_coordinate and piece.selected == True:
+                                piece.attack_right_5()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_attack_right_6_coordinate and piece.selected == True:
+                                piece.attack_right_6()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_attack_right_7_coordinate and piece.selected == True:
+                                piece.attack_right_7()
+                                gui_turn()
+                                print(chessv6.turn())
+
+
+                            if self.coordinate in piece.potential_move_left_coordinate and piece.selected == True:
+                                piece.move_left()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_move_left_2_coordinate and piece.selected == True:
+                                piece.move_left_2()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_move_left_3_coordinate and piece.selected == True:
+                                piece.move_left_3()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_move_left_4_coordinate and piece.selected == True:
+                                piece.move_left_4()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_move_left_5_coordinate and piece.selected == True:
+                                piece.move_left_5()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_move_left_6_coordinate and piece.selected == True:
+                                piece.move_left_6()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_move_left_7_coordinate and piece.selected == True:
+                                piece.move_left_7()
+                                gui_turn()
+                                print(chessv6.turn())
+
+                            if self.coordinate in piece.potential_attack_left_coordinate and piece.selected == True:
+                                piece.attack_left()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_attack_left_2_coordinate and piece.selected == True:
+                                piece.attack_left_2()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_attack_left_3_coordinate and piece.selected == True:
+                                piece.attack_left_3()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_attack_left_4_coordinate and piece.selected == True:
+                                piece.attack_left_4()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_attack_left_5_coordinate and piece.selected == True:
+                                piece.attack_left_5()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_attack_left_6_coordinate and piece.selected == True:
+                                piece.attack_left_6()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_attack_left_7_coordinate and piece.selected == True:
+                                piece.attack_left_7()
+                                gui_turn()
+                                print(chessv6.turn())
+
+                        if piece.piece_type == "w_bishop" and chessv6.whos_turn == "white":
+
+                            if self.coordinate in piece.potential_move_up_right_coordinate and piece.selected == True:
+                                piece.move_up_right()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_move_up_right_2_coordinate and piece.selected == True:
+                                piece.move_up_right_2()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_move_up_right_3_coordinate and piece.selected == True:
+                                piece.move_up_right_3()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_move_up_right_4_coordinate and piece.selected == True:
+                                piece.move_up_right_4()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_move_up_right_5_coordinate and piece.selected == True:
+                                piece.move_up_right_5()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_move_up_right_6_coordinate and piece.selected == True:
+                                piece.move_up_right_6()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_move_up_right_7_coordinate and piece.selected == True:
+                                piece.move_up_right_7()
+                                gui_turn()
+                                print(chessv6.turn())
+
+
+                            if self.coordinate in piece.potential_move_up_left_coordinate and piece.selected == True:
+                                piece.move_up_left()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_move_up_left_2_coordinate and piece.selected == True:
+                                piece.move_up_left_2()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_move_up_left_3_coordinate and piece.selected == True:
+                                piece.move_up_left_3()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_move_up_left_4_coordinate and piece.selected == True:
+                                piece.move_up_left_4()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_move_up_left_5_coordinate and piece.selected == True:
+                                piece.move_up_left_5()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_move_up_left_6_coordinate and piece.selected == True:
+                                piece.move_up_left_6()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_move_up_left_7_coordinate and piece.selected == True:
+                                piece.move_up_left_7()
+                                gui_turn()
+                                print(chessv6.turn())
+
+                            if self.coordinate in piece.potential_move_down_right_coordinate and piece.selected == True:
+                                piece.move_down_right()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_move_down_right_2_coordinate and piece.selected == True:
+                                piece.move_down_right_2()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_move_down_right_3_coordinate and piece.selected == True:
+                                piece.move_down_right_3()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_move_down_right_4_coordinate and piece.selected == True:
+                                piece.move_down_right_4()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_move_down_right_5_coordinate and piece.selected == True:
+                                piece.move_down_right_5()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_move_down_right_6_coordinate and piece.selected == True:
+                                piece.move_down_right_6()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_move_down_right_7_coordinate and piece.selected == True:
+                                piece.move_down_right_7()
+                                gui_turn()
+                                print(chessv6.turn())
+
+                            if self.coordinate in piece.potential_move_down_left_coordinate and piece.selected == True:
+                                piece.move_down_left()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_move_down_left_2_coordinate and piece.selected == True:
+                                piece.move_down_left_2()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_move_down_left_3_coordinate and piece.selected == True:
+                                piece.move_down_left_3()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_move_down_left_4_coordinate and piece.selected == True:
+                                piece.move_down_left_4()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_move_down_left_5_coordinate and piece.selected == True:
+                                piece.move_down_left_5()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_move_down_left_6_coordinate and piece.selected == True:
+                                piece.move_down_left_6()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_move_down_left_7_coordinate and piece.selected == True:
+                                piece.move_down_left_7()
+                                gui_turn()
+                                print(chessv6.turn())
+
+
+                            if self.coordinate in piece.potential_attack_up_right_coordinate and piece.selected == True:
+                                piece.attack_up_right()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_attack_up_right_2_coordinate and piece.selected == True:
+                                piece.attack_up_right_2()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_attack_up_right_3_coordinate and piece.selected == True:
+                                piece.attack_up_right_3()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_attack_up_right_4_coordinate and piece.selected == True:
+                                piece.attack_up_right_4()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_attack_up_right_5_coordinate and piece.selected == True:
+                                piece.attack_up_right_5()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_attack_up_right_6_coordinate and piece.selected == True:
+                                piece.attack_up_right_6()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_attack_up_right_7_coordinate and piece.selected == True:
+                                piece.attack_up_right_7()
+                                gui_turn()
+                                print(chessv6.turn())
+
+
+                            if self.coordinate in piece.potential_attack_up_left_coordinate and piece.selected == True:
+                                piece.attack_up_left()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_attack_up_left_2_coordinate and piece.selected == True:
+                                piece.attack_up_left_2()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_attack_up_left_3_coordinate and piece.selected == True:
+                                piece.attack_up_left_3()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_attack_up_left_4_coordinate and piece.selected == True:
+                                piece.attack_up_left_4()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_attack_up_left_5_coordinate and piece.selected == True:
+                                piece.attack_up_left_5()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_attack_up_left_6_coordinate and piece.selected == True:
+                                piece.attack_up_left_6()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_attack_up_left_7_coordinate and piece.selected == True:
+                                piece.attack_up_left_7()
+                                gui_turn()
+                                print(chessv6.turn())
+
+                            if self.coordinate in piece.potential_attack_down_right_coordinate and piece.selected == True:
+                                piece.attack_down_right()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_attack_down_right_2_coordinate and piece.selected == True:
+                                piece.attack_down_right_2()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_attack_down_right_3_coordinate and piece.selected == True:
+                                piece.attack_down_right_3()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_attack_down_right_4_coordinate and piece.selected == True:
+                                piece.attack_down_right_4()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_attack_down_right_5_coordinate and piece.selected == True:
+                                piece.attack_down_right_5()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_attack_down_right_6_coordinate and piece.selected == True:
+                                piece.attack_down_right_6()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_attack_down_right_7_coordinate and piece.selected == True:
+                                piece.attack_down_right_7()
+                                gui_turn()
+                                print(chessv6.turn())
+
+                            if self.coordinate in piece.potential_attack_down_left_coordinate and piece.selected == True:
+                                piece.attack_down_left()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_attack_down_left_2_coordinate and piece.selected == True:
+                                piece.attack_down_left_2()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_attack_down_left_3_coordinate and piece.selected == True:
+                                piece.attack_down_left_3()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_attack_down_left_4_coordinate and piece.selected == True:
+                                piece.attack_down_left_4()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_attack_down_left_5_coordinate and piece.selected == True:
+                                piece.attack_down_left_5()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_attack_down_left_6_coordinate and piece.selected == True:
+                                piece.attack_down_left_6()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_attack_down_left_7_coordinate and piece.selected == True:
+                                piece.attack_down_left_7()
+                                gui_turn()
+                                print(chessv6.turn())
+
+                        if piece.piece_type == "b_bishop" and chessv6.whos_turn == "black":
+
+                            if self.coordinate in piece.potential_move_up_right_coordinate and piece.selected == True:
+                                piece.move_up_right()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_move_up_right_2_coordinate and piece.selected == True:
+                                piece.move_up_right_2()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_move_up_right_3_coordinate and piece.selected == True:
+                                piece.move_up_right_3()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_move_up_right_4_coordinate and piece.selected == True:
+                                piece.move_up_right_4()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_move_up_right_5_coordinate and piece.selected == True:
+                                piece.move_up_right_5()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_move_up_right_6_coordinate and piece.selected == True:
+                                piece.move_up_right_6()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_move_up_right_7_coordinate and piece.selected == True:
+                                piece.move_up_right_7()
+                                gui_turn()
+                                print(chessv6.turn())
+
+
+                            if self.coordinate in piece.potential_move_up_left_coordinate and piece.selected == True:
+                                piece.move_up_left()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_move_up_left_2_coordinate and piece.selected == True:
+                                piece.move_up_left_2()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_move_up_left_3_coordinate and piece.selected == True:
+                                piece.move_up_left_3()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_move_up_left_4_coordinate and piece.selected == True:
+                                piece.move_up_left_4()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_move_up_left_5_coordinate and piece.selected == True:
+                                piece.move_up_left_5()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_move_up_left_6_coordinate and piece.selected == True:
+                                piece.move_up_left_6()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_move_up_left_7_coordinate and piece.selected == True:
+                                piece.move_up_left_7()
+                                gui_turn()
+                                print(chessv6.turn())
+
+                            if self.coordinate in piece.potential_move_down_right_coordinate and piece.selected == True:
+                                piece.move_down_right()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_move_down_right_2_coordinate and piece.selected == True:
+                                piece.move_down_right_2()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_move_down_right_3_coordinate and piece.selected == True:
+                                piece.move_down_right_3()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_move_down_right_4_coordinate and piece.selected == True:
+                                piece.move_down_right_4()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_move_down_right_5_coordinate and piece.selected == True:
+                                piece.move_down_right_5()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_move_down_right_6_coordinate and piece.selected == True:
+                                piece.move_down_right_6()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_move_down_right_7_coordinate and piece.selected == True:
+                                piece.move_down_right_7()
+                                gui_turn()
+                                print(chessv6.turn())
+
+                            if self.coordinate in piece.potential_move_down_left_coordinate and piece.selected == True:
+                                piece.move_down_left()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_move_down_left_2_coordinate and piece.selected == True:
+                                piece.move_down_left_2()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_move_down_left_3_coordinate and piece.selected == True:
+                                piece.move_down_left_3()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_move_down_left_4_coordinate and piece.selected == True:
+                                piece.move_down_left_4()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_move_down_left_5_coordinate and piece.selected == True:
+                                piece.move_down_left_5()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_move_down_left_6_coordinate and piece.selected == True:
+                                piece.move_down_left_6()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_move_down_left_7_coordinate and piece.selected == True:
+                                piece.move_down_left_7()
+                                gui_turn()
+                                print(chessv6.turn())
+
+
+                            if self.coordinate in piece.potential_attack_up_right_coordinate and piece.selected == True:
+                                piece.attack_up_right()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_attack_up_right_2_coordinate and piece.selected == True:
+                                piece.attack_up_right_2()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_attack_up_right_3_coordinate and piece.selected == True:
+                                piece.attack_up_right_3()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_attack_up_right_4_coordinate and piece.selected == True:
+                                piece.attack_up_right_4()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_attack_up_right_5_coordinate and piece.selected == True:
+                                piece.attack_up_right_5()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_attack_up_right_6_coordinate and piece.selected == True:
+                                piece.attack_up_right_6()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_attack_up_right_7_coordinate and piece.selected == True:
+                                piece.attack_up_right_7()
+                                gui_turn()
+                                print(chessv6.turn())
+
+
+                            if self.coordinate in piece.potential_attack_up_left_coordinate and piece.selected == True:
+                                piece.attack_up_left()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_attack_up_left_2_coordinate and piece.selected == True:
+                                piece.attack_up_left_2()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_attack_up_left_3_coordinate and piece.selected == True:
+                                piece.attack_up_left_3()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_attack_up_left_4_coordinate and piece.selected == True:
+                                piece.attack_up_left_4()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_attack_up_left_5_coordinate and piece.selected == True:
+                                piece.attack_up_left_5()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_attack_up_left_6_coordinate and piece.selected == True:
+                                piece.attack_up_left_6()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_attack_up_left_7_coordinate and piece.selected == True:
+                                piece.attack_up_left_7()
+                                gui_turn()
+                                print(chessv6.turn())
+
+                            if self.coordinate in piece.potential_attack_down_right_coordinate and piece.selected == True:
+                                piece.attack_down_right()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_attack_down_right_2_coordinate and piece.selected == True:
+                                piece.attack_down_right_2()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_attack_down_right_3_coordinate and piece.selected == True:
+                                piece.attack_down_right_3()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_attack_down_right_4_coordinate and piece.selected == True:
+                                piece.attack_down_right_4()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_attack_down_right_5_coordinate and piece.selected == True:
+                                piece.attack_down_right_5()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_attack_down_right_6_coordinate and piece.selected == True:
+                                piece.attack_down_right_6()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_attack_down_right_7_coordinate and piece.selected == True:
+                                piece.attack_down_right_7()
+                                gui_turn()
+                                print(chessv6.turn())
+
+                            if self.coordinate in piece.potential_attack_down_left_coordinate and piece.selected == True:
+                                piece.attack_down_left()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_attack_down_left_2_coordinate and piece.selected == True:
+                                piece.attack_down_left_2()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_attack_down_left_3_coordinate and piece.selected == True:
+                                piece.attack_down_left_3()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_attack_down_left_4_coordinate and piece.selected == True:
+                                piece.attack_down_left_4()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_attack_down_left_5_coordinate and piece.selected == True:
+                                piece.attack_down_left_5()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_attack_down_left_6_coordinate and piece.selected == True:
+                                piece.attack_down_left_6()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_attack_down_left_7_coordinate and piece.selected == True:
+                                piece.attack_down_left_7()
+                                gui_turn()
+                                print(chessv6.turn())
+
+                        if piece.piece_type == "w_king" and chessv6.whos_turn == "white":
                             if self.coordinate in piece.potential_move_up_coordinate and piece.selected == True:
                                 piece.move_up()
                                 gui_turn()
@@ -1230,7 +2192,141 @@ class square_gui:
                                 gui_turn()
                                 print(chessv6.turn())
 
-                        if piece.piece_type == "w_knight" or piece.piece_type == "b_knight":
+                        if piece.piece_type == "b_king" and chessv6.whos_turn == "black":
+                            if self.coordinate in piece.potential_move_up_coordinate and piece.selected == True:
+                                piece.move_up()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_attack_up_coordinate and piece.selected == True:
+                                piece.attack_up()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_move_down_coordinate and piece.selected == True:
+                                piece.move_down()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_attack_down_coordinate and piece.selected == True:
+                                piece.attack_down()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_move_right_coordinate and piece.selected == True:
+                                piece.move_right()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_attack_right_coordinate and piece.selected == True:
+                                piece.attack_right()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_move_left_coordinate and piece.selected == True:
+                                piece.move_left()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_attack_left_coordinate and piece.selected == True:
+                                piece.attack_left()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_move_up_right_coordinate and piece.selected == True:
+                                piece.move_up_right()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_move_up_left_coordinate and piece.selected == True:
+                                piece.move_up_left()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_move_down_right_coordinate and piece.selected == True:
+                                piece.move_down_right()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_move_down_left_coordinate and piece.selected == True:
+                                piece.move_down_left()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_attack_up_right_coordinate and piece.selected == True:
+                                piece.attack_up_right()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_attack_up_left_coordinate and piece.selected == True:
+                                piece.attack_up_left()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_attack_down_right_coordinate and piece.selected == True:
+                                piece.attack_down_right()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_attack_down_left_coordinate and piece.selected == True:
+                                piece.attack_down_left()
+                                gui_turn()
+                                print(chessv6.turn())
+
+                        if piece.piece_type == "w_knight" and chessv6.whos_turn == "white":
+
+                            if self.coordinate in piece.potential_move_1clock_coordinate and piece.selected == True:
+                                piece.move_1clock()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_move_2clock_coordinate and piece.selected == True:
+                                piece.move_2clock()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_move_4clock_coordinate and piece.selected == True:
+                                piece.move_4clock()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_move_5clock_coordinate and piece.selected == True:
+                                piece.move_5clock()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_move_7clock_coordinate and piece.selected == True:
+                                piece.move_7clock()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_move_8clock_coordinate and piece.selected == True:
+                                piece.move_8clock()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_move_10clock_coordinate and piece.selected == True:
+                                piece.move_10clock()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_move_11clock_coordinate and piece.selected == True:
+                                piece.move_11clock()
+                                gui_turn()
+                                print(chessv6.turn())
+
+                            if self.coordinate in piece.potential_attack_1clock_coordinate and piece.selected == True:
+                                piece.attack_1clock()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_attack_2clock_coordinate and piece.selected == True:
+                                piece.attack_2clock()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_attack_4clock_coordinate and piece.selected == True:
+                                piece.attack_4clock()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_attack_5clock_coordinate and piece.selected == True:
+                                piece.attack_5clock()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_attack_7clock_coordinate and piece.selected == True:
+                                piece.attack_7clock()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_attack_8clock_coordinate and piece.selected == True:
+                                piece.attack_8clock()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_attack_10clock_coordinate and piece.selected == True:
+                                piece.attack_10clock()
+                                gui_turn()
+                                print(chessv6.turn())
+                            if self.coordinate in piece.potential_attack_11clock_coordinate and piece.selected == True:
+                                piece.attack_11clock()
+                                gui_turn()
+                                print(chessv6.turn())
+
+                        if piece.piece_type == "b_knight" and chessv6.whos_turn == "black":
 
                             if self.coordinate in piece.potential_move_1clock_coordinate and piece.selected == True:
                                 piece.move_1clock()
@@ -1300,23 +2396,10 @@ class square_gui:
 
         if pygame.mouse.get_pressed()[0] == 1:
             self.clicked=False
-            # for piece in chessv6.piece_tuple:
-            #     if piece.selected==True:
-            #         counter=0
-            #         counter+=1
-            #         if counter%2==0:
-            #             piece.selected=False
 
         if self.x+100 > pygame.mouse.get_pos()[0] > self.x and self.y+100 > pygame.mouse.get_pos()[1] > self.y :
             if pygame.mouse.get_pressed()[0] == 1:
                 self.clicked=True
-                # for piece in chessv6.piece_tuple:
-                #     if piece.chess_replace()==self.coordinate:
-                #         print(chessv6.turn())
-                #         for square in square_gui_tuple:
-                #             if square.coordinate in piece.potential_move_list:
-                #                 square.display_potential_moves()
-                        #piece.move()
 
     def interact(self):
             for piece in chessv6.piece_tuple:

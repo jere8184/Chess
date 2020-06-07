@@ -11477,6 +11477,7 @@ class king:
         self.piece_type=piece_type
         self.selected=False
         self.colour=colour
+        self.check=False
         self.potential_attack_list = []
         self.potential_move_list = []
         self.potential_move_up_coordinate = []
@@ -11842,6 +11843,14 @@ class king:
                 return king.list_replace(coord,6,"g")
             if coord[0] == 7:
                 return king.list_replace(coord,7,"h")
+
+    def am_I_in_check(self):
+        for piece in piece_tuple:
+            if self.chess_replace() in piece.potential_attack_list:
+                self.check = True
+                break
+            else:
+                self.check = False
 
 class knight:
 
@@ -12301,45 +12310,27 @@ square_a1 = square(False,False,["a",1])
 square_a2 = square(False,False,["a",2])
 square_a3 = square(False,False,["a",3])
 square_a4 = square(False,False,["a",4])
-
 square_a5 = square(False,False,["a",5])
-
 square_a6 = square(False,False,["a",6])
-
 square_a7 = square(False,False,["a",7])
-
 square_a8 = square(False,False,["a",8])
-
 square_b1 = square(False,False,["b",1])
-
 square_b2 = square(False,False,["b",2])
-
 square_b3 = square(False,False,["b",3])
-
 square_b4 = square(False,False,["b",4])
-
 square_b5 = square(False,False,["b",5])
-
 square_b6 = square(False,False,["b",6])
-
 square_b7 = square(False,False,["b",7])
-
 square_b8 = square(False,False,["b",8])
-
 square_c1 = square(False,False,["c",1])
 square_c2 = square(False,False,["c",2])
 square_c3 = square(False,False,["c",3])
 square_c4 = square(False,False,["c",4])
 square_c5 = square(False,False,["c",5])
-
 square_c6 = square(False,False,["c",6])
-
 square_c7 = square(False,False,["c",7])
-
 square_c8 = square(False,False,["c",8])
-
 square_d1 = square(False,False,["d",1])
-
 square_d2 = square(False,False,["d",2])
 square_d3 = square(False,False,["d",3])
 square_d4 = square(False,False,["d",4])
@@ -12348,82 +12339,36 @@ square_d6 = square(False,False,["d",6])
 square_d7 = square(False,False,["d",7])
 square_d8 = square(False,False,["d",8])
 square_e1 = square(False,False,["e",1])
-
-
 square_e2 = square(False,False,["e",2])
-
-
 square_e3 = square(False,False,["e",3])
-
-
 square_e4 = square(False,False,["e",4])
-
 square_e5 = square(False,False,["e",5])
-
 square_e6 = square(False,False,["e",6])
-
-
 square_e7 = square(False,False,["e",7])
-
 square_e8 = square(False,False,["e",8])
-
 square_f1 = square(False,False,["f",1])
-
 square_f2 = square(False,False,["f",2])
-
-
 square_f3 = square(False,False,["f",3])
-
-
 square_f4 = square(False,False,["f",4])
-
-
 square_f5 = square(False,False,["f",5])
-
 square_f6 = square(False,False,["f",6])
-
-
 square_f7 = square(False,False,["f",7])
-
-
 square_f8 = square(False,False,["f",8])
-
-
 square_g1 = square(False,False,["g",1])
-
-
 square_g2 = square(False,False,["g",2])
-
-
 square_g3 = square(False,False,["g",3])
-
-
 square_g4 = square(False,False,["g",4])
-
-
 square_g5 = square(False,False,["g",5])
-
 square_g6 = square(False,False,["g",6])
-
 square_g7 = square(False,False,["g",7])
-
-
 square_g8 = square(False,False,["g",8])
-
 square_h1 = square(False,False,["h",1])
-
 square_h2 = square(False,False,["h",2])
-
 square_h3 = square(False,False,["h",3])
-
 square_h4 = square(False,False,["h",4])
-
 square_h5 = square(False,False,["h",5])
-
 square_h6 = square(False,False,["h",6])
-
 square_h7 = square(False,False,["h",7])
-
 square_h8 = square(False,False,["h",8])
 
 
@@ -12449,10 +12394,21 @@ rank_7_tuple=(square_a7,square_b7,square_c7,square_d7,square_e7,square_f7,square
 rank_8_tuple=(square_a8,square_b8,square_c8,square_d8,square_e8,square_f8,square_g8,square_h8)
 
 piece_tuple=(pawn_a_w,pawn_b_w,pawn_c_w,pawn_d_w,pawn_e_w,pawn_f_w,pawn_g_w,pawn_h_w,
-pawn_a_b,pawn_b_b,pawn_c_b,pawn_d_b,pawn_e_b,pawn_f_b,pawn_g_b,pawn_h_b,queen_1_w,queen_1_b,rook_1_w,rook_2_w,rook_1_b,rook_2_b,bishop_1_w,bishop_2_w,bishop_2_b,bishop_1_b,king_1_w,king_1_b,knight_1_w,knight_2_w,knight_1_b,knight_2_b)
+pawn_a_b,pawn_b_b,pawn_c_b,pawn_d_b,pawn_e_b,pawn_f_b,pawn_g_b,pawn_h_b,queen_1_w,queen_1_b,rook_1_w,rook_2_w,rook_1_b,rook_2_b,bishop_1_w,bishop_2_w,bishop_2_b,bishop_1_b,knight_1_w,knight_2_w,knight_1_b,knight_2_b,king_1_w,king_1_b)
+
+turn_counter = 0
+whos_turn = None
 
 def turn():
 
+    global turn_counter
+    global whos_turn
+    turn_counter += 1
+
+    if turn_counter%2 == 1:
+        whos_turn = "white"
+    else:
+        whos_turn = "black"
 
     for i in square_tuple:
         i.is_it_attacked()
@@ -12931,6 +12887,44 @@ def turn():
             piece.potential_attack_down_left_6()
             piece.potential_attack_down_left_7()
 
+        if piece.piece_type=="w_knight" or piece.piece_type=="b_knight":
+            piece.potential_move_list = []
+            piece.potential_attack_list = []
+            piece.potential_move_1clock_coordinate = []
+            piece.potential_move_2clock_coordinate = []
+            piece.potential_move_4clock_coordinate = []
+            piece.potential_move_5clock_coordinate = []
+            piece.potential_move_7clock_coordinate = []
+            piece.potential_move_8clock_coordinate = []
+            piece.potential_move_10clock_coordinate = []
+            piece.potential_move_11clock_coordinate = []
+            piece.potential_attack_1clock_coordinate = []
+            piece.potential_attack_2clock_coordinate = []
+            piece.potential_attack_4clock_coordinate = []
+            piece.potential_attack_5clock_coordinate = []
+            piece.potential_attack_7clock_coordinate = []
+            piece.potential_attack_8clock_coordinate = []
+            piece.potential_attack_10clock_coordinate = []
+            piece.potential_attack_11clock_coordinate = []
+
+            piece.potential_move_1clock()
+            piece.potential_move_2clock()
+            piece.potential_move_4clock()
+            piece.potential_move_5clock()
+            piece.potential_move_7clock()
+            piece.potential_move_8clock()
+            piece.potential_move_10clock()
+            piece.potential_move_11clock()
+            piece.potential_attack_1clock()
+            piece.potential_attack_2clock()
+            piece.potential_attack_4clock()
+            piece.potential_attack_5clock()
+            piece.potential_attack_7clock()
+            piece.potential_attack_8clock()
+            piece.potential_attack_10clock()
+            piece.potential_attack_11clock()
+
+
         if piece.piece_type=="w_king" or piece.piece_type=="b_king":
             piece.potential_move_list =[]
             piece.potential_attack_list = []
@@ -12966,44 +12960,8 @@ def turn():
             piece.potential_attack_up_left()
             piece.potential_attack_down_right()
             piece.potential_attack_down_left()
+            piece.am_I_in_check()
 
-        if piece.piece_type=="w_knight" or piece.piece_type=="b_knight":
-            piece.potential_move_list = []
-            piece.potential_attack_list = []
-            piece.potential_move_1clock_coordinate = []
-            piece.potential_move_2clock_coordinate = []
-            piece.potential_move_4clock_coordinate = []
-            piece.potential_move_5clock_coordinate = []
-            piece.potential_move_7clock_coordinate = []
-            piece.potential_move_8clock_coordinate = []
-            piece.potential_move_10clock_coordinate = []
-            piece.potential_move_11clock_coordinate = []
-            piece.potential_attack_1clock_coordinate = []
-            piece.potential_attack_2clock_coordinate = []
-            piece.potential_attack_4clock_coordinate = []
-            piece.potential_attack_5clock_coordinate = []
-            piece.potential_attack_7clock_coordinate = []
-            piece.potential_attack_8clock_coordinate = []
-            piece.potential_attack_10clock_coordinate = []
-            piece.potential_attack_11clock_coordinate = []
-
-
-            piece.potential_move_1clock()
-            piece.potential_move_2clock()
-            piece.potential_move_4clock()
-            piece.potential_move_5clock()
-            piece.potential_move_7clock()
-            piece.potential_move_8clock()
-            piece.potential_move_10clock()
-            piece.potential_move_11clock()
-            piece.potential_attack_1clock()
-            piece.potential_attack_2clock()
-            piece.potential_attack_4clock()
-            piece.potential_attack_5clock()
-            piece.potential_attack_7clock()
-            piece.potential_attack_8clock()
-            piece.potential_attack_10clock()
-            piece.potential_attack_11clock()
 
 
 
@@ -13301,6 +13259,7 @@ def turn():
             elif coor.occupied_by == "b_knight":
                 rank_8_gui[index]="kn"
 
+    print(whos_turn)
     print("8",rank_8_gui)
     print("7",rank_7_gui)
     print("6",rank_6_gui)
