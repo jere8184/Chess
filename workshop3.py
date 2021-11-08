@@ -251,473 +251,585 @@ class square_gui:
                         if piece.piece_type == "w_queen" and chessv6.whos_turn == "white":
 
                             if self.coordinate in piece.potential_move_up_coordinate and piece.selected == True:
+                                if piece.is_pinned() == True:
+                                    break
                                 piece.move_up()
                                 gui_turn()
-                                chessv6.turn()
                             if self.coordinate in piece.potential_move_up_2_coordinate and piece.selected == True:
+                                if piece.is_pinned() == True:
+                                    break
                                 piece.move_up_2()
                                 gui_turn()
-                                chessv6.turn()
                             if self.coordinate in piece.potential_move_up_3_coordinate and piece.selected == True:
+                                if piece.is_pinned() == True:
+                                    break
                                 piece.move_up_3()
                                 gui_turn()
-                                chessv6.turn()
                             if self.coordinate in piece.potential_move_up_4_coordinate and piece.selected == True:
+                                if piece.is_pinned() == True:
+                                    break
                                 piece.move_up_4()
                                 gui_turn()
-                                chessv6.turn()
                             if self.coordinate in piece.potential_move_up_5_coordinate and piece.selected == True:
+                                if piece.is_pinned() == True:
+                                    break
                                 piece.move_up_5()
                                 gui_turn()
-                                chessv6.turn()
                             if self.coordinate in piece.potential_move_up_6_coordinate and piece.selected == True:
+                                if piece.is_pinned() == True:
+                                    break
                                 piece.move_up_6()
                                 gui_turn()
-                                chessv6.turn()
                             if self.coordinate in piece.potential_move_up_7_coordinate and piece.selected == True:
+                                if piece.is_pinned() == True:
+                                    break
                                 piece.move_up_7()
                                 gui_turn()
-                                chessv6.turn()
 
                             if self.coordinate in piece.potential_attack_up_coordinate and piece.selected == True:
+                                if piece.is_pinned() == True:
+                                    break
                                 piece.attack_up()
                                 gui_turn()
-                                chessv6.turn()
                             if self.coordinate in piece.potential_attack_up_2_coordinate and piece.selected == True:
+                                if piece.is_pinned() == True:
+                                    break
                                 piece.attack_up_2()
                                 gui_turn()
-                                chessv6.turn()
                             if self.coordinate in piece.potential_attack_up_3_coordinate and piece.selected == True:
+                                if piece.is_pinned() == True:
+                                    break
                                 piece.attack_up_3()
                                 gui_turn()
-                                chessv6.turn()
                             if self.coordinate in piece.potential_attack_up_4_coordinate and piece.selected == True:
+                                if piece.is_pinned() == True:
+                                    break
                                 piece.attack_up_4()
                                 gui_turn()
-                                chessv6.turn()
                             if self.coordinate in piece.potential_attack_up_5_coordinate and piece.selected == True:
+                                if piece.is_pinned() == True:
+                                    break
                                 piece.attack_up_5()
                                 gui_turn()
-                                chessv6.turn()
                             if self.coordinate in piece.potential_attack_up_6_coordinate and piece.selected == True:
+                                if piece.is_pinned() == True:
+                                    break
                                 piece.attack_up_6()
                                 gui_turn()
-                                chessv6.turn()
                             if self.coordinate in piece.potential_attack_up_7_coordinate and piece.selected == True:
+                                if piece.is_pinned() == True:
+                                    break
                                 piece.attack_up_7()
                                 gui_turn()
-                                chessv6.turn()
 
                             if self.coordinate in piece.potential_move_down_coordinate and piece.selected == True:
+                                if piece.is_pinned() == True:
+                                    break
                                 piece.move_down()
                                 gui_turn()
-                                chessv6.turn()
                             if self.coordinate in piece.potential_move_down_2_coordinate and piece.selected == True:
+                                if piece.is_pinned() == True:
+                                    break
                                 piece.move_down_2()
                                 gui_turn()
-                                chessv6.turn()
                             if self.coordinate in piece.potential_move_down_3_coordinate and piece.selected == True:
                                 piece.move_down_3()
                                 gui_turn()
-                                chessv6.turn()
+                                if piece.is_pinned() == True:
+                                    break
                             if self.coordinate in piece.potential_move_down_4_coordinate and piece.selected == True:
+                                if piece.is_pinned() == True:
+                                    break
                                 piece.move_down_4()
                                 gui_turn()
-                                chessv6.turn()
                             if self.coordinate in piece.potential_move_down_5_coordinate and piece.selected == True:
+                                if piece.is_pinned() == True:
+                                    break
                                 piece.move_down_5()
                                 gui_turn()
-                                chessv6.turn()
                             if self.coordinate in piece.potential_move_down_6_coordinate and piece.selected == True:
+                                if piece.is_pinned() == True:
+                                    break
                                 piece.move_down_6()
                                 gui_turn()
-                                chessv6.turn()
                             if self.coordinate in piece.potential_move_down_7_coordinate and piece.selected == True:
+                                if piece.is_pinned() == True:
+                                    break
                                 piece.move_down_7()
                                 gui_turn()
-                                chessv6.turn()
 
                             if self.coordinate in piece.potential_attack_down_coordinate and piece.selected == True:
+                                if piece.is_pinned() == True:
+                                    break
                                 piece.attack_down()
                                 gui_turn()
-                                chessv6.turn()
                             if self.coordinate in piece.potential_attack_down_2_coordinate and piece.selected == True:
+                                if piece.is_pinned() == True:
+                                    break
                                 piece.attack_down_2()
                                 gui_turn()
-                                chessv6.turn()
                             if self.coordinate in piece.potential_attack_down_3_coordinate and piece.selected == True:
+                                if piece.is_pinned() == True:
+                                    break
                                 piece.attack_down_3()
                                 gui_turn()
-                                chessv6.turn()
                             if self.coordinate in piece.potential_attack_down_4_coordinate and piece.selected == True:
+                                if piece.is_pinned() == True:
+                                    break
                                 piece.attack_down_4()
                                 gui_turn()
-                                chessv6.turn()
                             if self.coordinate in piece.potential_attack_down_5_coordinate and piece.selected == True:
+                                if piece.is_pinned() == True:
+                                    break
                                 piece.attack_down_5()
                                 gui_turn()
-                                chessv6.turn()
                             if self.coordinate in piece.potential_attack_down_6_coordinate and piece.selected == True:
+                                if piece.is_pinned() == True:
+                                    break
                                 piece.attack_down_6()
                                 gui_turn()
-                                chessv6.turn()
                             if self.coordinate in piece.potential_attack_down_7_coordinate and piece.selected == True:
+                                if piece.is_pinned() == True:
+                                    break
                                 piece.attack_down_7()
                                 gui_turn()
-                                chessv6.turn()
 
 
                             if self.coordinate in piece.potential_move_right_coordinate and piece.selected == True:
+                                if piece.is_pinned() == True:
+                                    break
                                 piece.move_right()
                                 gui_turn()
-                                chessv6.turn()
                             if self.coordinate in piece.potential_move_right_2_coordinate and piece.selected == True:
+                                if piece.is_pinned() == True:
+                                    break
                                 piece.move_right_2()
                                 gui_turn()
-                                chessv6.turn()
                             if self.coordinate in piece.potential_move_right_3_coordinate and piece.selected == True:
+                                if piece.is_pinned() == True:
+                                    break
                                 piece.move_right_3()
                                 gui_turn()
-                                chessv6.turn()
                             if self.coordinate in piece.potential_move_right_4_coordinate and piece.selected == True:
+                                if piece.is_pinned() == True:
+                                    break
                                 piece.move_right_4()
                                 gui_turn()
-                                chessv6.turn()
                             if self.coordinate in piece.potential_move_right_5_coordinate and piece.selected == True:
+                                if piece.is_pinned() == True:
+                                    break
                                 piece.move_right_5()
                                 gui_turn()
-                                chessv6.turn()
                             if self.coordinate in piece.potential_move_right_6_coordinate and piece.selected == True:
+                                if piece.is_pinned() == True:
+                                    break
                                 piece.move_right_6()
                                 gui_turn()
-                                chessv6.turn()
                             if self.coordinate in piece.potential_move_right_7_coordinate and piece.selected == True:
+                                if piece.is_pinned() == True:
+                                    break
                                 piece.move_right_7()
                                 gui_turn()
-                                chessv6.turn()
 
                             if self.coordinate in piece.potential_attack_right_coordinate and piece.selected == True:
+                                if piece.is_pinned() == True:
+                                    break
                                 piece.attack_right()
                                 gui_turn()
-                                chessv6.turn()
                             if self.coordinate in piece.potential_attack_right_2_coordinate and piece.selected == True:
+                                if piece.is_pinned() == True:
+                                    break
                                 piece.attack_right_2()
                                 gui_turn()
-                                chessv6.turn()
                             if self.coordinate in piece.potential_attack_right_3_coordinate and piece.selected == True:
+                                if piece.is_pinned() == True:
+                                    break
                                 piece.attack_right_3()
                                 gui_turn()
-                                chessv6.turn()
                             if self.coordinate in piece.potential_attack_right_4_coordinate and piece.selected == True:
+                                if piece.is_pinned() == True:
+                                    break
                                 piece.attack_right_4()
                                 gui_turn()
-                                chessv6.turn()
                             if self.coordinate in piece.potential_attack_right_5_coordinate and piece.selected == True:
+                                if piece.is_pinned() == True:
+                                    break
                                 piece.attack_right_5()
                                 gui_turn()
-                                chessv6.turn()
                             if self.coordinate in piece.potential_attack_right_6_coordinate and piece.selected == True:
+                                if piece.is_pinned() == True:
+                                    break
                                 piece.attack_right_6()
                                 gui_turn()
-                                chessv6.turn()
                             if self.coordinate in piece.potential_attack_right_7_coordinate and piece.selected == True:
+                                if piece.is_pinned() == True:
+                                    break
                                 piece.attack_right_7()
                                 gui_turn()
-                                chessv6.turn()
 
 
                             if self.coordinate in piece.potential_move_left_coordinate and piece.selected == True:
+                                if piece.is_pinned() == True:
+                                    break
                                 piece.move_left()
                                 gui_turn()
-                                chessv6.turn()
                             if self.coordinate in piece.potential_move_left_2_coordinate and piece.selected == True:
+                                if piece.is_pinned() == True:
+                                    break
                                 piece.move_left_2()
                                 gui_turn()
-                                chessv6.turn()
                             if self.coordinate in piece.potential_move_left_3_coordinate and piece.selected == True:
+                                if piece.is_pinned() == True:
+                                    break
                                 piece.move_left_3()
                                 gui_turn()
-                                chessv6.turn()
                             if self.coordinate in piece.potential_move_left_4_coordinate and piece.selected == True:
+                                if piece.is_pinned() == True:
+                                    break
                                 piece.move_left_4()
                                 gui_turn()
-                                chessv6.turn()
                             if self.coordinate in piece.potential_move_left_5_coordinate and piece.selected == True:
+                                if piece.is_pinned() == True:
+                                    break
                                 piece.move_left_5()
                                 gui_turn()
-                                chessv6.turn()
                             if self.coordinate in piece.potential_move_left_6_coordinate and piece.selected == True:
+                                if piece.is_pinned() == True:
+                                    break
                                 piece.move_left_6()
                                 gui_turn()
-                                chessv6.turn()
                             if self.coordinate in piece.potential_move_left_7_coordinate and piece.selected == True:
+                                if piece.is_pinned() == True:
+                                    break
                                 piece.move_left_7()
                                 gui_turn()
-                                chessv6.turn()
 
                             if self.coordinate in piece.potential_attack_left_coordinate and piece.selected == True:
+                                if piece.is_pinned() == True:
+                                    break
                                 piece.attack_left()
                                 gui_turn()
-                                chessv6.turn()
                             if self.coordinate in piece.potential_attack_left_2_coordinate and piece.selected == True:
+                                if piece.is_pinned() == True:
+                                    break
                                 piece.attack_left_2()
                                 gui_turn()
-                                chessv6.turn()
                             if self.coordinate in piece.potential_attack_left_3_coordinate and piece.selected == True:
+                                if piece.is_pinned() == True:
+                                    break
                                 piece.attack_left_3()
                                 gui_turn()
-                                chessv6.turn()
                             if self.coordinate in piece.potential_attack_left_4_coordinate and piece.selected == True:
+                                if piece.is_pinned() == True:
+                                    break
                                 piece.attack_left_4()
                                 gui_turn()
-                                chessv6.turn()
                             if self.coordinate in piece.potential_attack_left_5_coordinate and piece.selected == True:
+                                if piece.is_pinned() == True:
+                                    break
                                 piece.attack_left_5()
                                 gui_turn()
-                                chessv6.turn()
                             if self.coordinate in piece.potential_attack_left_6_coordinate and piece.selected == True:
+                                if piece.is_pinned() == True:
+                                    break
                                 piece.attack_left_6()
                                 gui_turn()
-                                chessv6.turn()
                             if self.coordinate in piece.potential_attack_left_7_coordinate and piece.selected == True:
+                                if piece.is_pinned() == True:
+                                    break
                                 piece.attack_left_7()
                                 gui_turn()
-                                chessv6.turn()
 
                             if self.coordinate in piece.potential_move_up_right_coordinate and piece.selected == True:
+                                if piece.is_pinned() == True:
+                                    break
                                 piece.move_up_right()
                                 gui_turn()
-                                chessv6.turn()
                             if self.coordinate in piece.potential_move_up_right_2_coordinate and piece.selected == True:
+                                if piece.is_pinned() == True:
+                                    break
                                 piece.move_up_right_2()
                                 gui_turn()
-                                chessv6.turn()
                             if self.coordinate in piece.potential_move_up_right_3_coordinate and piece.selected == True:
+                                if piece.is_pinned() == True:
+                                    break
                                 piece.move_up_right_3()
                                 gui_turn()
-                                chessv6.turn()
                             if self.coordinate in piece.potential_move_up_right_4_coordinate and piece.selected == True:
+                                if piece.is_pinned() == True:
+                                    break
                                 piece.move_up_right_4()
                                 gui_turn()
-                                chessv6.turn()
                             if self.coordinate in piece.potential_move_up_right_5_coordinate and piece.selected == True:
+                                if piece.is_pinned() == True:
+                                    break
                                 piece.move_up_right_5()
                                 gui_turn()
-                                chessv6.turn()
                             if self.coordinate in piece.potential_move_up_right_6_coordinate and piece.selected == True:
+                                if piece.is_pinned() == True:
+                                    break
                                 piece.move_up_right_6()
                                 gui_turn()
-                                chessv6.turn()
                             if self.coordinate in piece.potential_move_up_right_7_coordinate and piece.selected == True:
+                                if piece.is_pinned() == True:
+                                    break
                                 piece.move_up_right_7()
                                 gui_turn()
-                                chessv6.turn()
 
 
                             if self.coordinate in piece.potential_move_up_left_coordinate and piece.selected == True:
+                                if piece.is_pinned() == True:
+                                    break
                                 piece.move_up_left()
                                 gui_turn()
-                                chessv6.turn()
                             if self.coordinate in piece.potential_move_up_left_2_coordinate and piece.selected == True:
+                                if piece.is_pinned() == True:
+                                    break
                                 piece.move_up_left_2()
                                 gui_turn()
-                                chessv6.turn()
                             if self.coordinate in piece.potential_move_up_left_3_coordinate and piece.selected == True:
+                                if piece.is_pinned() == True:
+                                    break
                                 piece.move_up_left_3()
                                 gui_turn()
-                                chessv6.turn()
                             if self.coordinate in piece.potential_move_up_left_4_coordinate and piece.selected == True:
+                                if piece.is_pinned() == True:
+                                    break
                                 piece.move_up_left_4()
                                 gui_turn()
-                                chessv6.turn()
                             if self.coordinate in piece.potential_move_up_left_5_coordinate and piece.selected == True:
+                                if piece.is_pinned() == True:
+                                    break
                                 piece.move_up_left_5()
                                 gui_turn()
-                                chessv6.turn()
                             if self.coordinate in piece.potential_move_up_left_6_coordinate and piece.selected == True:
+                                if piece.is_pinned() == True:
+                                    break
                                 piece.move_up_left_6()
                                 gui_turn()
-                                chessv6.turn()
                             if self.coordinate in piece.potential_move_up_left_7_coordinate and piece.selected == True:
+                                if piece.is_pinned() == True:
+                                    break
                                 piece.move_up_left_7()
                                 gui_turn()
-                                chessv6.turn()
 
                             if self.coordinate in piece.potential_move_down_right_coordinate and piece.selected == True:
+                                if piece.is_pinned() == True:
+                                    break
                                 piece.move_down_right()
                                 gui_turn()
-                                chessv6.turn()
                             if self.coordinate in piece.potential_move_down_right_2_coordinate and piece.selected == True:
+                                if piece.is_pinned() == True:
+                                    break
                                 piece.move_down_right_2()
                                 gui_turn()
-                                chessv6.turn()
                             if self.coordinate in piece.potential_move_down_right_3_coordinate and piece.selected == True:
+                                if piece.is_pinned() == True:
+                                    break
                                 piece.move_down_right_3()
                                 gui_turn()
-                                chessv6.turn()
                             if self.coordinate in piece.potential_move_down_right_4_coordinate and piece.selected == True:
+                                if piece.is_pinned() == True:
+                                    break
                                 piece.move_down_right_4()
                                 gui_turn()
-                                chessv6.turn()
                             if self.coordinate in piece.potential_move_down_right_5_coordinate and piece.selected == True:
+                                if piece.is_pinned() == True:
+                                    break
                                 piece.move_down_right_5()
                                 gui_turn()
-                                chessv6.turn()
                             if self.coordinate in piece.potential_move_down_right_6_coordinate and piece.selected == True:
+                                if piece.is_pinned() == True:
+                                    break
                                 piece.move_down_right_6()
                                 gui_turn()
-                                chessv6.turn()
                             if self.coordinate in piece.potential_move_down_right_7_coordinate and piece.selected == True:
+                                if piece.is_pinned() == True:
+                                    break
                                 piece.move_down_right_7()
                                 gui_turn()
-                                chessv6.turn()
 
                             if self.coordinate in piece.potential_move_down_left_coordinate and piece.selected == True:
+                                if piece.is_pinned() == True:
+                                    break
                                 piece.move_down_left()
                                 gui_turn()
-                                chessv6.turn()
                             if self.coordinate in piece.potential_move_down_left_2_coordinate and piece.selected == True:
+                                if piece.is_pinned() == True:
+                                    break
                                 piece.move_down_left_2()
                                 gui_turn()
-                                chessv6.turn()
                             if self.coordinate in piece.potential_move_down_left_3_coordinate and piece.selected == True:
+                                if piece.is_pinned() == True:
+                                    break
                                 piece.move_down_left_3()
                                 gui_turn()
-                                chessv6.turn()
                             if self.coordinate in piece.potential_move_down_left_4_coordinate and piece.selected == True:
+                                if piece.is_pinned() == True:
+                                    break
                                 piece.move_down_left_4()
                                 gui_turn()
-                                chessv6.turn()
                             if self.coordinate in piece.potential_move_down_left_5_coordinate and piece.selected == True:
+                                if piece.is_pinned() == True:
+                                    break
                                 piece.move_down_left_5()
                                 gui_turn()
-                                chessv6.turn()
                             if self.coordinate in piece.potential_move_down_left_6_coordinate and piece.selected == True:
+                                if piece.is_pinned() == True:
+                                    break
                                 piece.move_down_left_6()
                                 gui_turn()
-                                chessv6.turn()
                             if self.coordinate in piece.potential_move_down_left_7_coordinate and piece.selected == True:
+                                if piece.is_pinned() == True:
+                                    break
                                 piece.move_down_left_7()
                                 gui_turn()
-                                chessv6.turn()
 
 
                             if self.coordinate in piece.potential_attack_up_right_coordinate and piece.selected == True:
+                                if piece.is_pinned() == True:
+                                    break
                                 piece.attack_up_right()
                                 gui_turn()
-                                chessv6.turn()
                             if self.coordinate in piece.potential_attack_up_right_2_coordinate and piece.selected == True:
+                                if piece.is_pinned() == True:
+                                    break
                                 piece.attack_up_right_2()
                                 gui_turn()
-                                chessv6.turn()
                             if self.coordinate in piece.potential_attack_up_right_3_coordinate and piece.selected == True:
+                                if piece.is_pinned() == True:
+                                    break
                                 piece.attack_up_right_3()
                                 gui_turn()
-                                chessv6.turn()
                             if self.coordinate in piece.potential_attack_up_right_4_coordinate and piece.selected == True:
+                                if piece.is_pinned() == True:
+                                    break
                                 piece.attack_up_right_4()
                                 gui_turn()
-                                chessv6.turn()
                             if self.coordinate in piece.potential_attack_up_right_5_coordinate and piece.selected == True:
+                                if piece.is_pinned() == True:
+                                    break
                                 piece.attack_up_right_5()
                                 gui_turn()
-                                chessv6.turn()
                             if self.coordinate in piece.potential_attack_up_right_6_coordinate and piece.selected == True:
+                                if piece.is_pinned() == True:
+                                    break
                                 piece.attack_up_right_6()
                                 gui_turn()
-                                chessv6.turn()
                             if self.coordinate in piece.potential_attack_up_right_7_coordinate and piece.selected == True:
+                                if piece.is_pinned() == True:
+                                    break
                                 piece.attack_up_right_7()
                                 gui_turn()
-                                chessv6.turn()
 
 
                             if self.coordinate in piece.potential_attack_up_left_coordinate and piece.selected == True:
+                                if piece.is_pinned() == True:
+                                    break
                                 piece.attack_up_left()
                                 gui_turn()
-                                chessv6.turn()
                             if self.coordinate in piece.potential_attack_up_left_2_coordinate and piece.selected == True:
+                                if piece.is_pinned() == True:
+                                    break
                                 piece.attack_up_left_2()
                                 gui_turn()
-                                chessv6.turn()
                             if self.coordinate in piece.potential_attack_up_left_3_coordinate and piece.selected == True:
+                                if piece.is_pinned() == True:
+                                    break
                                 piece.attack_up_left_3()
                                 gui_turn()
-                                chessv6.turn()
                             if self.coordinate in piece.potential_attack_up_left_4_coordinate and piece.selected == True:
+                                if piece.is_pinned() == True:
+                                    break
                                 piece.attack_up_left_4()
                                 gui_turn()
-                                chessv6.turn()
                             if self.coordinate in piece.potential_attack_up_left_5_coordinate and piece.selected == True:
+                                if piece.is_pinned() == True:
+                                    break
                                 piece.attack_up_left_5()
                                 gui_turn()
-                                chessv6.turn()
                             if self.coordinate in piece.potential_attack_up_left_6_coordinate and piece.selected == True:
+                                if piece.is_pinned() == True:
+                                    break
                                 piece.attack_up_left_6()
                                 gui_turn()
-                                chessv6.turn()
                             if self.coordinate in piece.potential_attack_up_left_7_coordinate and piece.selected == True:
+                                if piece.is_pinned() == True:
+                                    break
                                 piece.attack_up_left_7()
                                 gui_turn()
-                                chessv6.turn()
 
                             if self.coordinate in piece.potential_attack_down_right_coordinate and piece.selected == True:
+                                if piece.is_pinned() == True:
+                                    break
                                 piece.attack_down_right()
                                 gui_turn()
-                                chessv6.turn()
                             if self.coordinate in piece.potential_attack_down_right_2_coordinate and piece.selected == True:
+                                if piece.is_pinned() == True:
+                                    break
                                 piece.attack_down_right_2()
                                 gui_turn()
-                                chessv6.turn()
                             if self.coordinate in piece.potential_attack_down_right_3_coordinate and piece.selected == True:
+                                if piece.is_pinned() == True:
+                                    break
                                 piece.attack_down_right_3()
                                 gui_turn()
-                                chessv6.turn()
                             if self.coordinate in piece.potential_attack_down_right_4_coordinate and piece.selected == True:
+                                if piece.is_pinned() == True:
+                                    break
                                 piece.attack_down_right_4()
                                 gui_turn()
-                                chessv6.turn()
                             if self.coordinate in piece.potential_attack_down_right_5_coordinate and piece.selected == True:
+                                if piece.is_pinned() == True:
+                                    break
                                 piece.attack_down_right_5()
                                 gui_turn()
-                                chessv6.turn()
                             if self.coordinate in piece.potential_attack_down_right_6_coordinate and piece.selected == True:
+                                if piece.is_pinned() == True:
+                                    break
                                 piece.attack_down_right_6()
                                 gui_turn()
-                                chessv6.turn()
                             if self.coordinate in piece.potential_attack_down_right_7_coordinate and piece.selected == True:
+                                if piece.is_pinned() == True:
+                                    break
                                 piece.attack_down_right_7()
                                 gui_turn()
-                                chessv6.turn()
 
                             if self.coordinate in piece.potential_attack_down_left_coordinate and piece.selected == True:
+                                if piece.is_pinned() == True:
+                                    break
                                 piece.attack_down_left()
                                 gui_turn()
-                                chessv6.turn()
                             if self.coordinate in piece.potential_attack_down_left_2_coordinate and piece.selected == True:
+                                if piece.is_pinned() == True:
+                                    break
                                 piece.attack_down_left_2()
                                 gui_turn()
-                                chessv6.turn()
                             if self.coordinate in piece.potential_attack_down_left_3_coordinate and piece.selected == True:
+                                if piece.is_pinned() == True:
+                                    break
                                 piece.attack_down_left_3()
                                 gui_turn()
-                                chessv6.turn()
                             if self.coordinate in piece.potential_attack_down_left_4_coordinate and piece.selected == True:
-                                piece.attack_down_left_4()
+                                if piece.is_pinned() == True:
+                                    break
                                 gui_turn()
-                                chessv6.turn()
+                                piece.attack_down_left_4()
                             if self.coordinate in piece.potential_attack_down_left_5_coordinate and piece.selected == True:
+                                if piece.is_pinned() == True:
+                                    break
                                 piece.attack_down_left_5()
                                 gui_turn()
-                                chessv6.turn()
                             if self.coordinate in piece.potential_attack_down_left_6_coordinate and piece.selected == True:
+                                if piece.is_pinned() == True:
+                                    break
                                 piece.attack_down_left_6()
                                 gui_turn()
-                                chessv6.turn()
                             if self.coordinate in piece.potential_attack_down_left_7_coordinate and piece.selected == True:
+                                if piece.is_pinned() == True:
+                                    break
                                 piece.attack_down_left_7()
                                 gui_turn()
-                                chessv6.turn()
 
                         if piece.piece_type == "b_queen" and chessv6.whos_turn == "black":
 

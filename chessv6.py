@@ -41,7 +41,6 @@ class square:
             if self.coordinate in i.potential_attack_list:
                 self.attacked=True
                 break
-
 class pawn_w:
 
     def __init__(self,position,has_moved,captured,colour):
@@ -64,14 +63,14 @@ class pawn_w:
             if i.coordinate == pawn_w.static_chess_replace(board[self.position[0]][board[self.position[0]].index(self.position)+1]) and i.occupied==False:
                 for i in square_tuple:
                     if i.coordinate == pawn_w.static_chess_replace(board[self.position[0]][board[self.position[0]].index(self.position)+2]) and i.occupied==False and self.captured==False and self.has_moved == False:
-                        self.position=board[self.position[0]][board[self.position[0]].index(self.position)+2]
+                        pawn_w.legal_move(self,board[self.position[0]][board[self.position[0]].index(self.position)+2])
                         self.has_moved=True
                         break
 
     def move(self):
         for i in square_tuple:
             if i.coordinate == pawn_w.static_chess_replace(board[self.position[0]][board[self.position[0]].index(self.position)+1]) and i.occupied==False and self.captured==False:
-                self.position=board[self.position[0]][board[self.position[0]].index(self.position)+1]
+                pawn_w.legal_move(self,board[self.position[0]][board[self.position[0]].index(self.position)+1])
                 self.has_moved=True
                 break
 
@@ -81,7 +80,7 @@ class pawn_w:
                 for x in piece_tuple:
                     if x.chess_replace()==i.coordinate:
                         x.captured=True
-                self.position=board[self.position[0]-1][board[self.position[0]].index(self.position)+1]
+                pawn_w.legal_move(self,board[self.position[0]-1][board[self.position[0]].index(self.position)+1])
                 self.has_moved=True
                 break
 
@@ -91,7 +90,7 @@ class pawn_w:
                 for x in piece_tuple:
                     if x.chess_replace()==i.coordinate:
                         x.captured=True
-                self.position=board[self.position[0]+1][board[self.position[0]].index(self.position)+1]
+                pawn_w.legal_move(self,board[self.position[0]+1][board[self.position[0]].index(self.position)+1])
                 self.has_moved=True
                 break
 
@@ -218,6 +217,33 @@ class pawn_w:
             if i[0] == 7:
                 self.list_replace(i,7,"h")
 
+    def is_pinned(self):
+        check_num = king_1_w.check
+        self.captured = True
+        turn()
+        if king_1_w.check > check_num:
+            self.captured = False
+            turn()
+            return True
+        else:
+            self.captured = False
+            turn()
+            return False
+
+    def legal_move(self,newpizish):
+        if king_1_w.check == 0:
+            self.position = newpizish
+            turn()
+        elif king_1_w.check > 0:
+            previous_postion = self.position
+            self.position = newpizish
+            turn()
+            if king_1_w.check == 0:
+                return True
+            else:
+                self.position = previous_postion
+                self.has_moved = False
+                turn()
 class pawn_b:
 
     def __init__(self,position,has_moved,captured,colour):
@@ -240,14 +266,14 @@ class pawn_b:
             if i.coordinate == pawn_b.static_chess_replace(board[self.position[0]][board[self.position[0]].index(self.position)-1]) and i.occupied==False:
                 for i in square_tuple:
                     if i.coordinate == pawn_b.static_chess_replace(board[self.position[0]][board[self.position[0]].index(self.position)-2]) and i.occupied==False and self.captured==False and self.has_moved == False:
-                        self.position=board[self.position[0]][board[self.position[0]].index(self.position)-2]
+                        pawn_b.legal_move(self,board[self.position[0]][board[self.position[0]].index(self.position)-2])
                         self.has_moved = True
                         break
 
     def move(self):
         for i in square_tuple:
             if i.coordinate == pawn_b.static_chess_replace(board[self.position[0]][board[self.position[0]].index(self.position)-1]) and i.occupied==False and self.captured==False:
-                self.position=board[self.position[0]][board[self.position[0]].index(self.position)-1]
+                pawn_b.legal_move(self,board[self.position[0]][board[self.position[0]].index(self.position)-1])
                 self.has_moved=True
                 break
 
@@ -257,7 +283,7 @@ class pawn_b:
                 for x in piece_tuple:
                     if x.chess_replace()==i.coordinate:
                         x.captured=True
-                self.position=board[self.position[0]-1][board[self.position[0]].index(self.position)-1]
+                pawn_b.legal_move(self,board[self.position[0]-1][board[self.position[0]].index(self.position)-1])
                 self.has_moved=True
                 break
 
@@ -267,7 +293,7 @@ class pawn_b:
                 for x in piece_tuple:
                     if x.chess_replace()==i.coordinate:
                         x.captured=True
-                self.position=board[self.position[0]+1][board[self.position[0]].index(self.position)-1]
+                pawn_b.legal_move(self,board[self.position[0]+1][board[self.position[0]].index(self.position)-1])
                 self.has_moved=True
                 break
 
@@ -394,6 +420,41 @@ class pawn_b:
             if i[0] == 7:
                 self.list_replace(i,7,"h")
 
+    def is_pinned(self):
+        check_num = king_1_b.check
+        self.captured = True
+        print("pinned test")
+        turn()
+        if king_1_b.check > check_num:
+            self.captured = False
+            print("im pinned")
+            turn()
+            return True
+        else:
+            self.captured = False
+            print("im not pinned")
+            turn()
+            return False
+
+    def legal_move(self,newpizish):
+        print("legal move test")
+        if king_1_b.check == 0:
+            self.position = newpizish
+            print("king not in check all moves legal!")
+            turn()
+        elif king_1_b.check > 0:
+            previous_postion = self.position
+            self.position = newpizish
+            print("king in check. seeing if myn move is legal")
+            turn()
+            if king_1_b.check == 0:
+                print("move was legal")
+                return True
+            else:
+                self.position = previous_postion
+                self.has_moved = False
+                print("move was illegal")
+                turn()
 class queen:
 
     def __init__(self,position,has_moved,captured,piece_type,colour):
@@ -522,7 +583,7 @@ class queen:
     def move_up(self):
         for i in square_tuple:
             if i.coordinate == queen.static_chess_replace(board[self.position[0]][board[self.position[0]].index(self.position)+1]) and i.occupied==False and self.captured==False:
-                self.position=board[self.position[0]][board[self.position[0]].index(self.position)+1]
+                queen.legal_move(self,board[self.position[0]][board[self.position[0]].index(self.position)+1])
                 self.has_moved=True
                 break
 
@@ -537,7 +598,7 @@ class queen:
                     if done == 1:
                         break
                     if i.coordinate == queen.static_chess_replace(board[self.position[0]][board[self.position[0]].index(self.position)+2]) and i.occupied==False and self.captured==False:
-                        self.position=board[self.position[0]][board[self.position[0]].index(self.position)+2]
+                        queen.legal_move(self,board[self.position[0]][board[self.position[0]].index(self.position)+2])
                         self.has_moved=True
                         done=1
                         break
@@ -554,7 +615,7 @@ class queen:
                     if i.coordinate == queen.static_chess_replace(board[self.position[0]][board[self.position[0]].index(self.position)+2]) and i.occupied==False:
                         for i in square_tuple:
                             if i.coordinate == queen.static_chess_replace(board[self.position[0]][board[self.position[0]].index(self.position)+3]) and i.occupied==False and self.captured==False:
-                                self.position=board[self.position[0]][board[self.position[0]].index(self.position)+3]
+                                queen.legal_move(self,board[self.position[0]][board[self.position[0]].index(self.position)+3])
                                 self.has_moved=True
                                 done=1
                                 break
@@ -575,9 +636,7 @@ class queen:
                             if i.coordinate == queen.static_chess_replace(board[self.position[0]][board[self.position[0]].index(self.position)+3]) and i.occupied==False:
                                 for i in square_tuple:
                                     if i.coordinate == queen.static_chess_replace(board[self.position[0]][board[self.position[0]].index(self.position)+4]) and i.occupied==False and self.captured==False:
-                                        self.position=board[self.position[0]][board[self.position[0]].index(self.position)+4]
-                                        print(self.position)
-                                        self.has_moved=True
+                                        queen.legal_move(self,board[self.position[0]][board[self.position[0]].index(self.position)+4])
                                         self.has_moved=True
                                         done=1
                                         break
@@ -603,7 +662,7 @@ class queen:
                                         for i in square_tuple:
                                             if i.coordinate == queen.static_chess_replace(board[self.position[0]][board[self.position[0]].index(self.position)+5]) and i.occupied==False and self.captured==False:
                                                 print(self.position)
-                                                self.position=board[self.position[0]][board[self.position[0]].index(self.position)+5]
+                                                queen.legal_move(self,board[self.position[0]][board[self.position[0]].index(self.position)+5])
                                                 self.has_moved=True
                                                 done=1
                                                 break
@@ -634,7 +693,7 @@ class queen:
                                                     if done == 1:
                                                         break
                                                     if i.coordinate == queen.static_chess_replace(board[self.position[0]][board[self.position[0]].index(self.position)+6]) and i.occupied==False and self.captured==False:
-                                                        self.position=board[self.position[0]][board[self.position[0]].index(self.position)+6]
+                                                        queen.legal_move(self,board[self.position[0]][board[self.position[0]].index(self.position)+6])
                                                         self.has_moved=True
                                                         done=1
                                                         break
@@ -669,7 +728,7 @@ class queen:
                                                             if done == 1:
                                                                 break
                                                             if i.coordinate == queen.static_chess_replace(board[self.position[0]][board[self.position[0]].index(self.position)+7]) and i.occupied==False and self.captured==False:
-                                                                self.position=board[self.position[0]][board[self.position[0]].index(self.position)+7]
+                                                                queen.legal_move(self,board[self.position[0]][board[self.position[0]].index(self.position)+7])
                                                                 self.has_moved=True
                                                                 done=1
                                                                 break
@@ -679,7 +738,7 @@ class queen:
     def move_down(self):
         for i in square_tuple:
             if i.coordinate == queen.static_chess_replace(board[self.position[0]][board[self.position[0]].index(self.position)-1]) and i.occupied==False and self.captured==False:
-                self.position=board[self.position[0]][board[self.position[0]].index(self.position)-1]
+                queen.legal_move(self,board[self.position[0]][board[self.position[0]].index(self.position)-1])
                 self.has_moved=True
                 break
 
@@ -694,7 +753,7 @@ class queen:
                     if done == 1:
                         break
                     if i.coordinate == queen.static_chess_replace(board[self.position[0]][board[self.position[0]].index(self.position)-2]) and i.occupied==False and self.captured==False:
-                        self.position=board[self.position[0]][board[self.position[0]].index(self.position)-2]
+                        queen.legal_move(self,board[self.position[0]][board[self.position[0]].index(self.position)-2])
                         self.has_moved=True
                         done=1
                         break
@@ -711,7 +770,7 @@ class queen:
                     if i.coordinate == queen.static_chess_replace(board[self.position[0]][board[self.position[0]].index(self.position)-2]) and i.occupied==False:
                         for i in square_tuple:
                             if i.coordinate == queen.static_chess_replace(board[self.position[0]][board[self.position[0]].index(self.position)-3]) and i.occupied==False and self.captured==False:
-                                self.position=board[self.position[0]][board[self.position[0]].index(self.position)-3]
+                                queen.legal_move(self,board[self.position[0]][board[self.position[0]].index(self.position)-3])
                                 self.has_moved=True
                                 done=1
                                 break
@@ -732,7 +791,7 @@ class queen:
                             if i.coordinate == queen.static_chess_replace(board[self.position[0]][board[self.position[0]].index(self.position)-3]) and i.occupied==False:
                                 for i in square_tuple:
                                     if i.coordinate == queen.static_chess_replace(board[self.position[0]][board[self.position[0]].index(self.position)-4]) and i.occupied==False and self.captured==False:
-                                        self.position=board[self.position[0]][board[self.position[0]].index(self.position)-4]
+                                        queen.legal_move(self,board[self.position[0]][board[self.position[0]].index(self.position)-4])
                                         self.has_moved=True
                                         self.has_moved=True
                                         done=1
@@ -758,7 +817,7 @@ class queen:
                                     if i.coordinate == queen.static_chess_replace(board[self.position[0]][board[self.position[0]].index(self.position)-4]) and i.occupied==False:
                                         for i in square_tuple:
                                             if i.coordinate == queen.static_chess_replace(board[self.position[0]][board[self.position[0]].index(self.position)-5]) and i.occupied==False and self.captured==False:
-                                                self.position=board[self.position[0]][board[self.position[0]].index(self.position)-5]
+                                                queen.legal_move(self,board[self.position[0]][board[self.position[0]].index(self.position)-5])
                                                 self.has_moved=True
                                                 done=1
                                                 break
@@ -789,7 +848,7 @@ class queen:
                                                     if done == 1:
                                                         break
                                                     if i.coordinate == queen.static_chess_replace(board[self.position[0]][board[self.position[0]].index(self.position)-6]) and i.occupied==False and self.captured==False:
-                                                        self.position=board[self.position[0]][board[self.position[0]].index(self.position)-6]
+                                                        queen.legal_move(self,board[self.position[0]][board[self.position[0]].index(self.position)-6])
                                                         self.has_moved=True
                                                         done=1
                                                         break
@@ -824,7 +883,7 @@ class queen:
                                                             if done == 1:
                                                                 break
                                                             if i.coordinate == queen.static_chess_replace(board[self.position[0]][board[self.position[0]].index(self.position)-7]) and i.occupied==False and self.captured==False:
-                                                                self.position=board[self.position[0]][board[self.position[0]].index(self.position)-7]
+                                                                queen.legal_move(self,board[self.position[0]][board[self.position[0]].index(self.position)-7])
                                                                 self.has_moved=True
                                                                 done=1
                                                                 break
@@ -832,7 +891,7 @@ class queen:
     def move_right(self):
         for i in square_tuple:
             if i.coordinate == queen.static_chess_replace(board[self.position[0]+1][board[self.position[0]].index(self.position)]) and i.occupied==False and self.captured==False:
-                self.position=board[self.position[0]+1][board[self.position[0]].index(self.position)]
+                queen.legal_move(self,board[self.position[0]+1][board[self.position[0]].index(self.position)])
                 self.has_moved=True
                 break
 
@@ -847,7 +906,7 @@ class queen:
                     if done == 1:
                         break
                     if i.coordinate == queen.static_chess_replace(board[self.position[0]+2][board[self.position[0]].index(self.position)]) and i.occupied==False and self.captured==False:
-                        self.position=board[self.position[0]+2][board[self.position[0]].index(self.position)]
+                        queen.legal_move(self,board[self.position[0]+2][board[self.position[0]].index(self.position)])
                         self.has_moved=True
                         done=1
                         break
@@ -864,7 +923,7 @@ class queen:
                     if i.coordinate == queen.static_chess_replace(board[self.position[0]+2][board[self.position[0]].index(self.position)]) and i.occupied==False:
                         for i in square_tuple:
                             if i.coordinate == queen.static_chess_replace(board[self.position[0]+3][board[self.position[0]].index(self.position)]) and i.occupied==False and self.captured==False:
-                                self.position=board[self.position[0]+3][board[self.position[0]].index(self.position)]
+                                queen.legal_move(self,board[self.position[0]+3][board[self.position[0]].index(self.position)])
                                 self.has_moved=True
                                 done=1
                                 break
@@ -885,7 +944,7 @@ class queen:
                             if i.coordinate == queen.static_chess_replace(board[self.position[0]+3][board[self.position[0]].index(self.position)]) and i.occupied==False:
                                 for i in square_tuple:
                                     if i.coordinate == queen.static_chess_replace(board[self.position[0]+4][board[self.position[0]].index(self.position)]) and i.occupied==False and self.captured==False:
-                                        self.position=board[self.position[0]+4][board[self.position[0]].index(self.position)]
+                                        queen.legal_move(self,board[self.position[0]+4][board[self.position[0]].index(self.position)])
                                         print(self.position)
                                         self.has_moved=True
                                         self.has_moved=True
@@ -913,7 +972,7 @@ class queen:
                                         for i in square_tuple:
                                             if i.coordinate == queen.static_chess_replace(board[self.position[0]+5][board[self.position[0]].index(self.position)]) and i.occupied==False and self.captured==False:
                                                 print(self.position)
-                                                self.position=board[self.position[0]+5][board[self.position[0]].index(self.position)]
+                                                queen.legal_move(self,board[self.position[0]+5][board[self.position[0]].index(self.position)])
                                                 self.has_moved=True
                                                 done=1
                                                 break
@@ -944,7 +1003,7 @@ class queen:
                                                     if done == 1:
                                                         break
                                                     if i.coordinate == queen.static_chess_replace(board[self.position[0]+6][board[self.position[0]].index(self.position)]) and i.occupied==False and self.captured==False:
-                                                        self.position=board[self.position[0]+6][board[self.position[0]].index(self.position)]
+                                                        queen.legal_move(self,board[self.position[0]+6][board[self.position[0]].index(self.position)])
                                                         self.has_moved=True
                                                         done=1
                                                         break
@@ -979,7 +1038,7 @@ class queen:
                                                             if done == 1:
                                                                 break
                                                             if i.coordinate == queen.static_chess_replace(board[self.position[0]+7][board[self.position[0]].index(self.position)]) and i.occupied==False and self.captured==False:
-                                                                self.position=board[self.position[0]+7][board[self.position[0]].index(self.position)]
+                                                                queen.legal_move(self,board[self.position[0]+7][board[self.position[0]].index(self.position)])
                                                                 self.has_moved=True
                                                                 done=1
                                                                 break
@@ -988,7 +1047,7 @@ class queen:
     def move_left(self):
         for i in square_tuple:
             if i.coordinate == queen.static_chess_replace(board[self.position[0]-1][board[self.position[0]].index(self.position)]) and i.occupied==False and self.captured==False:
-                self.position=board[self.position[0]-1][board[self.position[0]].index(self.position)]
+                queen.legal_move(self,board[self.position[0]-1][board[self.position[0]].index(self.position)])
                 self.has_moved=True
                 break
 
@@ -1003,7 +1062,7 @@ class queen:
                     if done == 1:
                         break
                     if i.coordinate == queen.static_chess_replace(board[self.position[0]-2][board[self.position[0]].index(self.position)]) and i.occupied==False and self.captured==False:
-                        self.position=board[self.position[0]-2][board[self.position[0]].index(self.position)]
+                        queen.legal_move(self,board[self.position[0]-2][board[self.position[0]].index(self.position)])
                         self.has_moved=True
                         done=1
                         break
@@ -1020,7 +1079,7 @@ class queen:
                     if i.coordinate == queen.static_chess_replace(board[self.position[0]-2][board[self.position[0]].index(self.position)]) and i.occupied==False:
                         for i in square_tuple:
                             if i.coordinate == queen.static_chess_replace(board[self.position[0]-3][board[self.position[0]].index(self.position)]) and i.occupied==False and self.captured==False:
-                                self.position=board[self.position[0]-3][board[self.position[0]].index(self.position)]
+                                queen.legal_move(self,board[self.position[0]-3][board[self.position[0]].index(self.position)])
                                 self.has_moved=True
                                 done=1
                                 break
@@ -1041,7 +1100,7 @@ class queen:
                             if i.coordinate == queen.static_chess_replace(board[self.position[0]-3][board[self.position[0]].index(self.position)]) and i.occupied==False:
                                 for i in square_tuple:
                                     if i.coordinate == queen.static_chess_replace(board[self.position[0]-4][board[self.position[0]].index(self.position)]) and i.occupied==False and self.captured==False:
-                                        self.position=board[self.position[0]-4][board[self.position[0]].index(self.position)]
+                                        queen.legal_move(self,board[self.position[0]-4][board[self.position[0]].index(self.position)])
                                         print(self.position)
                                         self.has_moved=True
                                         self.has_moved=True
@@ -1069,7 +1128,7 @@ class queen:
                                         for i in square_tuple:
                                             if i.coordinate == queen.static_chess_replace(board[self.position[0]-5][board[self.position[0]].index(self.position)]) and i.occupied==False and self.captured==False:
                                                 print(self.position)
-                                                self.position=board[self.position[0]-5][board[self.position[0]].index(self.position)]
+                                                queen.legal_move(self,board[self.position[0]-5][board[self.position[0]].index(self.position)])
                                                 self.has_moved=True
                                                 done=1
                                                 break
@@ -1100,7 +1159,7 @@ class queen:
                                                     if done == 1:
                                                         break
                                                     if i.coordinate == queen.static_chess_replace(board[self.position[0]-6][board[self.position[0]].index(self.position)]) and i.occupied==False and self.captured==False:
-                                                        self.position=board[self.position[0]-6][board[self.position[0]].index(self.position)]
+                                                        queen.legal_move(self,board[self.position[0]-6][board[self.position[0]].index(self.position)])
                                                         self.has_moved=True
                                                         done=1
                                                         break
@@ -1135,7 +1194,7 @@ class queen:
                                                             if done == 1:
                                                                 break
                                                             if i.coordinate == queen.static_chess_replace(board[self.position[0]-7][board[self.position[0]].index(self.position)]) and i.occupied==False and self.captured==False:
-                                                                self.position=board[self.position[0]-7][board[self.position[0]].index(self.position)]
+                                                                queen.legal_move(self,board[self.position[0]-7][board[self.position[0]].index(self.position)])
                                                                 self.has_moved=True
                                                                 done=1
                                                                 break
@@ -1144,7 +1203,7 @@ class queen:
     def move_up_right(self):
         for i in square_tuple:
             if i.coordinate == queen.static_chess_replace(board[self.position[0]+1][board[self.position[0]].index(self.position)+1]) and i.occupied==False and self.captured==False:
-                self.position=board[self.position[0]+1][board[self.position[0]].index(self.position)+1]
+                queen.legal_move(self,board[self.position[0]+1][board[self.position[0]].index(self.position)+1])
                 self.has_moved=True
                 break
 
@@ -1159,7 +1218,7 @@ class queen:
                     if done == 1:
                         break
                     if i.coordinate == queen.static_chess_replace(board[self.position[0]+2][board[self.position[0]].index(self.position)+2]) and i.occupied==False and self.captured==False:
-                        self.position=board[self.position[0]+2][board[self.position[0]].index(self.position)+2]
+                        queen.legal_move(self,board[self.position[0]+2][board[self.position[0]].index(self.position)+2])
                         self.has_moved=True
                         done=1
                         break
@@ -1176,7 +1235,7 @@ class queen:
                     if i.coordinate == queen.static_chess_replace(board[self.position[0]+2][board[self.position[0]].index(self.position)+2]) and i.occupied==False:
                         for i in square_tuple:
                             if i.coordinate == queen.static_chess_replace(board[self.position[0]+3][board[self.position[0]].index(self.position)+3]) and i.occupied==False and self.captured==False:
-                                self.position=board[self.position[0]+3][board[self.position[0]].index(self.position)+3]
+                                queen.legal_move(self,board[self.position[0]+3][board[self.position[0]].index(self.position)+3])
                                 self.has_moved=True
                                 done=1
                                 break
@@ -1197,8 +1256,7 @@ class queen:
                             if i.coordinate == queen.static_chess_replace(board[self.position[0]+3][board[self.position[0]].index(self.position)+3]) and i.occupied==False:
                                 for i in square_tuple:
                                     if i.coordinate == queen.static_chess_replace(board[self.position[0]+4][board[self.position[0]].index(self.position)+4]) and i.occupied==False and self.captured==False:
-                                        self.position=board[self.position[0]+4][board[self.position[0]].index(self.position)+4]
-                                        print(self.position)
+                                        queen.legal_move(self,board[self.position[0]+4][board[self.position[0]].index(self.position)+4])
                                         self.has_moved=True
                                         self.has_moved=True
                                         done=1
@@ -1225,7 +1283,7 @@ class queen:
                                         for i in square_tuple:
                                             if i.coordinate == queen.static_chess_replace(board[self.position[0]+5][board[self.position[0]].index(self.position)+5]) and i.occupied==False and self.captured==False:
                                                 print(self.position)
-                                                self.position=board[self.position[0]+5][board[self.position[0]].index(self.position)+5]
+                                                queen.legal_move(self,board[self.position[0]+5][board[self.position[0]].index(self.position)+5])
                                                 self.has_moved=True
                                                 done=1
                                                 break
@@ -1256,7 +1314,7 @@ class queen:
                                                     if done == 1:
                                                         break
                                                     if i.coordinate == queen.static_chess_replace(board[self.position[0]+6][board[self.position[0]].index(self.position)+6]) and i.occupied==False and self.captured==False:
-                                                        self.position=board[self.position[0]+6][board[self.position[0]].index(self.position)+6]
+                                                        queen.legal_move(self,board[self.position[0]+6][board[self.position[0]].index(self.position)+6])
                                                         self.has_moved=True
                                                         done=1
                                                         break
@@ -1291,7 +1349,7 @@ class queen:
                                                             if done == 1:
                                                                 break
                                                             if i.coordinate == queen.static_chess_replace(board[self.position[0]+7][board[self.position[0]].index(self.position)+7]) and i.occupied==False and self.captured==False:
-                                                                self.position=board[self.position[0]+7][board[self.position[0]].index(self.position)+7]
+                                                                queen.legal_move(self,board[self.position[0]+7][board[self.position[0]].index(self.position)+7])
                                                                 self.has_moved=True
                                                                 done=1
                                                                 break
@@ -1300,7 +1358,7 @@ class queen:
     def move_up_left(self):
         for i in square_tuple:
             if i.coordinate == queen.static_chess_replace(board[self.position[0]-1][board[self.position[0]].index(self.position)+1]) and i.occupied==False and self.captured==False:
-                self.position=board[self.position[0]-1][board[self.position[0]].index(self.position)+1]
+                queen.legal_move(self,board[self.position[0]-1][board[self.position[0]].index(self.position)+1])
                 self.has_moved=True
                 break
 
@@ -1315,7 +1373,7 @@ class queen:
                     if done == 1:
                         break
                     if i.coordinate == queen.static_chess_replace(board[self.position[0]-2][board[self.position[0]].index(self.position)+2]) and i.occupied==False and self.captured==False:
-                        self.position=board[self.position[0]-2][board[self.position[0]].index(self.position)+2]
+                        queen.legal_move(self,board[self.position[0]-2][board[self.position[0]].index(self.position)+2])
                         self.has_moved=True
                         done=1
                         break
@@ -1332,7 +1390,7 @@ class queen:
                     if i.coordinate == queen.static_chess_replace(board[self.position[0]-2][board[self.position[0]].index(self.position)+2]) and i.occupied==False:
                         for i in square_tuple:
                             if i.coordinate == queen.static_chess_replace(board[self.position[0]-3][board[self.position[0]].index(self.position)+3]) and i.occupied==False and self.captured==False:
-                                self.position=board[self.position[0]-3][board[self.position[0]].index(self.position)+3]
+                                queen.legal_move(self,board[self.position[0]-3][board[self.position[0]].index(self.position)+3])
                                 self.has_moved=True
                                 done=1
                                 break
@@ -1353,8 +1411,7 @@ class queen:
                             if i.coordinate == queen.static_chess_replace(board[self.position[0]-3][board[self.position[0]].index(self.position)+3]) and i.occupied==False:
                                 for i in square_tuple:
                                     if i.coordinate == queen.static_chess_replace(board[self.position[0]-4][board[self.position[0]].index(self.position)+4]) and i.occupied==False and self.captured==False:
-                                        self.position=board[self.position[0]-4][board[self.position[0]].index(self.position)+4]
-                                        print(self.position)
+                                        queen.legal_move(self,board[self.position[0]-4][board[self.position[0]].index(self.position)+4])
                                         self.has_moved=True
                                         self.has_moved=True
                                         done=1
@@ -1381,7 +1438,7 @@ class queen:
                                         for i in square_tuple:
                                             if i.coordinate == queen.static_chess_replace(board[self.position[0]-5][board[self.position[0]].index(self.position)+5]) and i.occupied==False and self.captured==False:
                                                 print(self.position)
-                                                self.position=board[self.position[0]-5][board[self.position[0]].index(self.position)+5]
+                                                queen.legal_move(self,board[self.position[0]-5][board[self.position[0]].index(self.position)+5])
                                                 self.has_moved=True
                                                 done=1
                                                 break
@@ -1412,7 +1469,7 @@ class queen:
                                                     if done == 1:
                                                         break
                                                     if i.coordinate == queen.static_chess_replace(board[self.position[0]-6][board[self.position[0]].index(self.position)+6]) and i.occupied==False and self.captured==False:
-                                                        self.position=board[self.position[0]-6][board[self.position[0]].index(self.position)+6]
+                                                        queen.legal_move(self,board[self.position[0]-6][board[self.position[0]].index(self.position)+6])
                                                         self.has_moved=True
                                                         done=1
                                                         break
@@ -1447,7 +1504,7 @@ class queen:
                                                             if done == 1:
                                                                 break
                                                             if i.coordinate == queen.static_chess_replace(board[self.position[0]-7][board[self.position[0]].index(self.position)+7]) and i.occupied==False and self.captured==False:
-                                                                self.position=board[self.position[0]-7][board[self.position[0]].index(self.position)+7]
+                                                                queen.legal_move(self,board[self.position[0]-7][board[self.position[0]].index(self.position)+7])
                                                                 self.has_moved=True
                                                                 done=1
                                                                 break
@@ -1456,7 +1513,7 @@ class queen:
     def move_down_right(self):
         for i in square_tuple:
             if i.coordinate == queen.static_chess_replace(board[self.position[0]+1][board[self.position[0]].index(self.position)-1]) and i.occupied==False and self.captured==False:
-                self.position=board[self.position[0]+1][board[self.position[0]].index(self.position)-1]
+                queen.legal_move(self,board[self.position[0]+1][board[self.position[0]].index(self.position)-1])
                 self.has_moved=True
                 break
 
@@ -1471,7 +1528,7 @@ class queen:
                     if done == 1:
                         break
                     if i.coordinate == queen.static_chess_replace(board[self.position[0]+2][board[self.position[0]].index(self.position)-2]) and i.occupied==False and self.captured==False:
-                        self.position=board[self.position[0]+2][board[self.position[0]].index(self.position)-2]
+                        queen.legal_move(self,board[self.position[0]+2][board[self.position[0]].index(self.position)-2])
                         self.has_moved=True
                         done=1
                         break
@@ -1488,7 +1545,7 @@ class queen:
                     if i.coordinate == queen.static_chess_replace(board[self.position[0]+2][board[self.position[0]].index(self.position)-2]) and i.occupied==False:
                         for i in square_tuple:
                             if i.coordinate == queen.static_chess_replace(board[self.position[0]+3][board[self.position[0]].index(self.position)-3]) and i.occupied==False and self.captured==False:
-                                self.position=board[self.position[0]+3][board[self.position[0]].index(self.position)-3]
+                                queen.legal_move(self,board[self.position[0]+3][board[self.position[0]].index(self.position)-3])
                                 self.has_moved=True
                                 done=1
                                 break
@@ -1509,8 +1566,7 @@ class queen:
                             if i.coordinate == queen.static_chess_replace(board[self.position[0]+3][board[self.position[0]].index(self.position)-3]) and i.occupied==False:
                                 for i in square_tuple:
                                     if i.coordinate == queen.static_chess_replace(board[self.position[0]+4][board[self.position[0]].index(self.position)-4]) and i.occupied==False and self.captured==False:
-                                        self.position=board[self.position[0]+4][board[self.position[0]].index(self.position)-4]
-                                        print(self.position)
+                                        queen.legal_move(self,board[self.position[0]+4][board[self.position[0]].index(self.position)-4])
                                         self.has_moved=True
                                         self.has_moved=True
                                         done=1
@@ -1537,7 +1593,7 @@ class queen:
                                         for i in square_tuple:
                                             if i.coordinate == queen.static_chess_replace(board[self.position[0]+5][board[self.position[0]].index(self.position)-5]) and i.occupied==False and self.captured==False:
                                                 print(self.position)
-                                                self.position=board[self.position[0]+5][board[self.position[0]].index(self.position)-5]
+                                                queen.legal_move(self,board[self.position[0]+5][board[self.position[0]].index(self.position)-5])
                                                 self.has_moved=True
                                                 done=1
                                                 break
@@ -1568,7 +1624,7 @@ class queen:
                                                     if done == 1:
                                                         break
                                                     if i.coordinate == queen.static_chess_replace(board[self.position[0]+6][board[self.position[0]].index(self.position)-6]) and i.occupied==False and self.captured==False:
-                                                        self.position=board[self.position[0]+6][board[self.position[0]].index(self.position)-6]
+                                                        queen.legal_move(self,board[self.position[0]+6][board[self.position[0]].index(self.position)-6])
                                                         self.has_moved=True
                                                         done=1
                                                         break
@@ -1603,7 +1659,7 @@ class queen:
                                                             if done == 1:
                                                                 break
                                                             if i.coordinate == queen.static_chess_replace(board[self.position[0]+7][board[self.position[0]].index(self.position)-7]) and i.occupied==False and self.captured==False:
-                                                                self.position=board[self.position[0]+7][board[self.position[0]].index(self.position)-7]
+                                                                queen.legal_move(self,board[self.position[0]+7][board[self.position[0]].index(self.position)-7])
                                                                 self.has_moved=True
                                                                 done=1
                                                                 break
@@ -1612,7 +1668,7 @@ class queen:
     def move_down_left(self):
         for i in square_tuple:
             if i.coordinate == queen.static_chess_replace(board[self.position[0]-1][board[self.position[0]].index(self.position)-1]) and i.occupied==False and self.captured==False:
-                self.position=board[self.position[0]-1][board[self.position[0]].index(self.position)-1]
+                queen.legal_move(self,board[self.position[0]-1][board[self.position[0]].index(self.position)-1])
                 self.has_moved=True
                 break
 
@@ -1627,7 +1683,7 @@ class queen:
                     if done == 1:
                         break
                     if i.coordinate == queen.static_chess_replace(board[self.position[0]-2][board[self.position[0]].index(self.position)-2]) and i.occupied==False and self.captured==False:
-                        self.position=board[self.position[0]-2][board[self.position[0]].index(self.position)-2]
+                        queen.legal_move(self,board[self.position[0]-2][board[self.position[0]].index(self.position)-2])
                         self.has_moved=True
                         done=1
                         break
@@ -1644,7 +1700,7 @@ class queen:
                     if i.coordinate == queen.static_chess_replace(board[self.position[0]-2][board[self.position[0]].index(self.position)-2]) and i.occupied==False:
                         for i in square_tuple:
                             if i.coordinate == queen.static_chess_replace(board[self.position[0]-3][board[self.position[0]].index(self.position)-3]) and i.occupied==False and self.captured==False:
-                                self.position=board[self.position[0]-3][board[self.position[0]].index(self.position)-3]
+                                queen.legal_move(self,board[self.position[0]-3][board[self.position[0]].index(self.position)-3])
                                 self.has_moved=True
                                 done=1
                                 break
@@ -1665,7 +1721,7 @@ class queen:
                             if i.coordinate == queen.static_chess_replace(board[self.position[0]-3][board[self.position[0]].index(self.position)-3]) and i.occupied==False:
                                 for i in square_tuple:
                                     if i.coordinate == queen.static_chess_replace(board[self.position[0]-4][board[self.position[0]].index(self.position)-4]) and i.occupied==False and self.captured==False:
-                                        self.position=board[self.position[0]-4][board[self.position[0]].index(self.position)-4]
+                                        queen.legal_move(self,board[self.position[0]-4][board[self.position[0]].index(self.position)-4])
                                         print(self.position)
                                         self.has_moved=True
                                         self.has_moved=True
@@ -1693,7 +1749,7 @@ class queen:
                                         for i in square_tuple:
                                             if i.coordinate == queen.static_chess_replace(board[self.position[0]-5][board[self.position[0]].index(self.position)-5]) and i.occupied==False and self.captured==False:
                                                 print(self.position)
-                                                self.position=board[self.position[0]-5][board[self.position[0]].index(self.position)-5]
+                                                queen.legal_move(self,board[self.position[0]-5][board[self.position[0]].index(self.position)-5])
                                                 self.has_moved=True
                                                 done=1
                                                 break
@@ -1724,7 +1780,7 @@ class queen:
                                                     if done == 1:
                                                         break
                                                     if i.coordinate == queen.static_chess_replace(board[self.position[0]-6][board[self.position[0]].index(self.position)-6]) and i.occupied==False and self.captured==False:
-                                                        self.position=board[self.position[0]-6][board[self.position[0]].index(self.position)-6]
+                                                        queen.legal_move(self,board[self.position[0]-6][board[self.position[0]].index(self.position)-6])
                                                         self.has_moved=True
                                                         done=1
                                                         break
@@ -1759,7 +1815,7 @@ class queen:
                                                             if done == 1:
                                                                 break
                                                             if i.coordinate == queen.static_chess_replace(board[self.position[0]-7][board[self.position[0]].index(self.position)-7]) and i.occupied==False and self.captured==False:
-                                                                self.position=board[self.position[0]-7][board[self.position[0]].index(self.position)-7]
+                                                                queen.legal_move(self,board[self.position[0]-7][board[self.position[0]].index(self.position)-7])
                                                                 self.has_moved=True
                                                                 done=1
                                                                 break
@@ -1771,7 +1827,7 @@ class queen:
                 for x in piece_tuple:
                     if x.chess_replace()==i.coordinate:
                         x.captured=True
-                self.position=board[self.position[0]][board[self.position[0]].index(self.position)+1]
+                queen.legal_move(self,board[self.position[0]][board[self.position[0]].index(self.position)+1])
                 self.has_moved=True
                 break
 
@@ -1789,7 +1845,7 @@ class queen:
                         for x in piece_tuple:
                             if x.chess_replace()==i.coordinate:
                                 x.captured=True
-                        self.position=board[self.position[0]][board[self.position[0]].index(self.position)+2]
+                        queen.legal_move(self,board[self.position[0]][board[self.position[0]].index(self.position)+2])
                         self.has_moved=True
                         done=1
                         break
@@ -1809,7 +1865,7 @@ class queen:
                                 for x in piece_tuple:
                                     if x.chess_replace()==i.coordinate:
                                         x.captured=True
-                                self.position=board[self.position[0]][board[self.position[0]].index(self.position)+3]
+                                queen.legal_move(self,board[self.position[0]][board[self.position[0]].index(self.position)+3])
                                 self.has_moved=True
                                 done=1
                                 break
@@ -1833,7 +1889,7 @@ class queen:
                                         for x in piece_tuple:
                                             if x.chess_replace()==i.coordinate:
                                                 x.captured=True
-                                        self.position=board[self.position[0]][board[self.position[0]].index(self.position)+4]
+                                        queen.legal_move(self,board[self.position[0]][board[self.position[0]].index(self.position)+4])
                                         self.has_moved=True
                                         done=1
                                         break
@@ -1861,7 +1917,7 @@ class queen:
                                                 for x in piece_tuple:
                                                     if x.chess_replace()==i.coordinate:
                                                         x.captured=True
-                                                self.position=board[self.position[0]][board[self.position[0]].index(self.position)+5]
+                                                queen.legal_move(self,board[self.position[0]][board[self.position[0]].index(self.position)+5])
                                                 self.has_moved=True
                                                 done=1
                                                 break
@@ -1895,7 +1951,7 @@ class queen:
                                                         for x in piece_tuple:
                                                             if x.chess_replace()==i.coordinate:
                                                                 x.captured=True
-                                                        self.position=board[self.position[0]][board[self.position[0]].index(self.position)+6]
+                                                        queen.legal_move(self,board[self.position[0]][board[self.position[0]].index(self.position)+6])
                                                         self.has_moved=True
                                                         done=1
                                                         break
@@ -1933,7 +1989,7 @@ class queen:
                                                                 for x in piece_tuple:
                                                                     if x.chess_replace()==i.coordinate:
                                                                         x.captured=True
-                                                                self.position=board[self.position[0]][board[self.position[0]].index(self.position)+7]
+                                                                queen.legal_move(self,board[self.position[0]][board[self.position[0]].index(self.position)+7])
                                                                 self.has_moved=True
                                                                 done=1
                                                                 break
@@ -1945,7 +2001,7 @@ class queen:
                 for x in piece_tuple:
                     if x.chess_replace()==i.coordinate:
                         x.captured=True
-                self.position=board[self.position[0]][board[self.position[0]].index(self.position)-1]
+                queen.legal_move(self,board[self.position[0]][board[self.position[0]].index(self.position)-1])
                 self.has_moved=True
                 break
 
@@ -1963,7 +2019,7 @@ class queen:
                         for x in piece_tuple:
                             if x.chess_replace()==i.coordinate:
                                 x.captured=True
-                        self.position=board[self.position[0]][board[self.position[0]].index(self.position)-2]
+                        queen.legal_move(self,board[self.position[0]][board[self.position[0]].index(self.position)-2])
                         self.has_moved=True
                         done=1
                         break
@@ -1985,7 +2041,7 @@ class queen:
                                 for x in piece_tuple:
                                     if x.chess_replace()==i.coordinate:
                                         x.captured=True
-                                self.position=board[self.position[0]][board[self.position[0]].index(self.position)-3]
+                                queen.legal_move(self,board[self.position[0]][board[self.position[0]].index(self.position)-3])
                                 self.has_moved=True
                                 done=1
                                 break
@@ -2009,7 +2065,7 @@ class queen:
                                         for x in piece_tuple:
                                             if x.chess_replace()==i.coordinate:
                                                 x.captured=True
-                                        self.position=board[self.position[0]][board[self.position[0]].index(self.position)-4]
+                                        queen.legal_move(self,board[self.position[0]][board[self.position[0]].index(self.position)-4])
                                         self.has_moved=True
                                         done=1
                                         break
@@ -2037,7 +2093,7 @@ class queen:
                                                 for x in piece_tuple:
                                                     if x.chess_replace()==i.coordinate:
                                                         x.captured=True
-                                                self.position=board[self.position[0]][board[self.position[0]].index(self.position)-5]
+                                                queen.legal_move(self,board[self.position[0]][board[self.position[0]].index(self.position)-5])
                                                 self.has_moved=True
                                                 done=1
                                                 break
@@ -2071,7 +2127,7 @@ class queen:
                                                         for x in piece_tuple:
                                                             if x.chess_replace()==i.coordinate:
                                                                 x.captured=True
-                                                        self.position=board[self.position[0]][board[self.position[0]].index(self.position)-6]
+                                                        queen.legal_move(self,board[self.position[0]][board[self.position[0]].index(self.position)-6])
                                                         self.has_moved=True
                                                         done=1
                                                         break
@@ -2109,7 +2165,7 @@ class queen:
                                                                 for x in piece_tuple:
                                                                     if x.chess_replace()==i.coordinate:
                                                                         x.captured=True
-                                                                self.position=board[self.position[0]][board[self.position[0]].index(self.position)-7]
+                                                                queen.legal_move(self,board[self.position[0]][board[self.position[0]].index(self.position)-7])
                                                                 self.has_moved=True
                                                                 done=1
                                                                 break
@@ -2121,7 +2177,7 @@ class queen:
                 for x in piece_tuple:
                     if x.chess_replace()==i.coordinate:
                         x.captured=True
-                self.position=board[self.position[0]+1][board[self.position[0]].index(self.position)]
+                queen.legal_move(self,board[self.position[0]+1][board[self.position[0]].index(self.position)])
                 self.has_moved=True
                 break
 
@@ -2139,7 +2195,7 @@ class queen:
                         for x in piece_tuple:
                             if x.chess_replace()==i.coordinate:
                                 x.captured=True
-                        self.position=board[self.position[0]+2][board[self.position[0]].index(self.position)]
+                        queen.legal_move(self,board[self.position[0]+2][board[self.position[0]].index(self.position)])
                         self.has_moved=True
                         done=1
                         break
@@ -2162,7 +2218,7 @@ class queen:
                                         if x.chess_replace()==i.coordinate:
                                             x.captured=True
                                             print(x.captured)
-                                    self.position=board[self.position[0]+3][board[self.position[0]].index(self.position)]
+                                    queen.legal_move(self,board[self.position[0]+3][board[self.position[0]].index(self.position)])
                                     self.has_moved=True
                                     done=1
                                     break
@@ -2188,7 +2244,7 @@ class queen:
                                         for x in piece_tuple:
                                             if x.chess_replace()==i.coordinate:
                                                 x.captured=True
-                                        self.position=board[self.position[0]+4][board[self.position[0]].index(self.position)]
+                                        queen.legal_move(self,board[self.position[0]+4][board[self.position[0]].index(self.position)])
                                         self.has_moved=True
                                         done=1
                                         break
@@ -2216,7 +2272,7 @@ class queen:
                                                 for x in piece_tuple:
                                                     if x.chess_replace()==i.coordinate:
                                                         x.captured=True
-                                                self.position=board[self.position[0]+5][board[self.position[0]].index(self.position)]
+                                                queen.legal_move(self,board[self.position[0]+5][board[self.position[0]].index(self.position)])
                                                 self.has_moved=True
                                                 done=1
                                                 break
@@ -2250,7 +2306,7 @@ class queen:
                                                         for x in piece_tuple:
                                                             if x.chess_replace()==i.coordinate:
                                                                 x.captured=True
-                                                        self.position=board[self.position[0]+6][board[self.position[0]].index(self.position)]
+                                                        queen.legal_move(self,board[self.position[0]+6][board[self.position[0]].index(self.position)])
                                                         self.has_moved=True
                                                         done=1
                                                         break
@@ -2288,7 +2344,7 @@ class queen:
                                                                 for x in piece_tuple:
                                                                     if x.chess_replace()==i.coordinate:
                                                                         x.captured=True
-                                                                self.position=board[self.position[0]+7][board[self.position[0]].index(self.position)]
+                                                                queen.legal_move(self,board[self.position[0]+7][board[self.position[0]].index(self.position)])
                                                                 self.has_moved=True
                                                                 done=1
                                                                 break
@@ -2300,7 +2356,7 @@ class queen:
                 for x in piece_tuple:
                     if x.chess_replace()==i.coordinate:
                         x.captured=True
-                self.position=board[self.position[0]-1][board[self.position[0]].index(self.position)]
+                queen.legal_move(self,board[self.position[0]-1][board[self.position[0]].index(self.position)])
                 self.has_moved=True
                 break
 
@@ -2318,7 +2374,7 @@ class queen:
                         for x in piece_tuple:
                             if x.chess_replace()==i.coordinate:
                                 x.captured=True
-                        self.position=board[self.position[0]-2][board[self.position[0]].index(self.position)]
+                        queen.legal_move(self,board[self.position[0]-2][board[self.position[0]].index(self.position)])
                         self.has_moved=True
                         done=1
                         break
@@ -2340,7 +2396,7 @@ class queen:
                                 for x in piece_tuple:
                                     if x.chess_replace()==i.coordinate:
                                         x.captured=True
-                                self.position=board[self.position[0]-3][board[self.position[0]].index(self.position)]
+                                queen.legal_move(self,board[self.position[0]-3][board[self.position[0]].index(self.position)])
                                 self.has_moved=True
                                 done=1
                                 break
@@ -2366,7 +2422,7 @@ class queen:
                                         for x in piece_tuple:
                                             if x.chess_replace()==i.coordinate:
                                                 x.captured=True
-                                        self.position=board[self.position[0]-4][board[self.position[0]].index(self.position)]
+                                        queen.legal_move(self,board[self.position[0]-4][board[self.position[0]].index(self.position)])
                                         self.has_moved=True
                                         done=1
                                         break
@@ -2396,7 +2452,7 @@ class queen:
                                                 for x in piece_tuple:
                                                     if x.chess_replace()==i.coordinate:
                                                         x.captured=True
-                                                self.position=board[self.position[0]-5][board[self.position[0]].index(self.position)]
+                                                queen.legal_move(self,board[self.position[0]-5][board[self.position[0]].index(self.position)])
                                                 self.has_moved=True
                                                 done=1
                                                 break
@@ -2430,7 +2486,7 @@ class queen:
                                                         for x in piece_tuple:
                                                             if x.chess_replace()==i.coordinate:
                                                                 x.captured=True
-                                                        self.position=board[self.position[0]-6][board[self.position[0]].index(self.position)]
+                                                        queen.legal_move(self,board[self.position[0]-6][board[self.position[0]].index(self.position)])
                                                         self.has_moved=True
                                                         done=1
                                                         break
@@ -2468,7 +2524,7 @@ class queen:
                                                                 for x in piece_tuple:
                                                                     if x.chess_replace()==i.coordinate:
                                                                         x.captured=True
-                                                                self.position=board[self.position[0]-7][board[self.position[0]].index(self.position)]
+                                                                queen.legal_move(self,board[self.position[0]-7][board[self.position[0]].index(self.position)])
                                                                 self.has_moved=True
                                                                 done=1
                                                                 break
@@ -2480,7 +2536,7 @@ class queen:
                 for x in piece_tuple:
                     if x.chess_replace()==i.coordinate:
                         x.captured=True
-                self.position=board[self.position[0]+1][board[self.position[0]].index(self.position)+1]
+                queen.legal_move(self,board[self.position[0]+1][board[self.position[0]].index(self.position)+1])
                 self.has_moved=True
                 break
 
@@ -2498,7 +2554,7 @@ class queen:
                         for x in piece_tuple:
                             if x.chess_replace()==i.coordinate:
                                 x.captured=True
-                        self.position=board[self.position[0]+2][board[self.position[0]].index(self.position)+2]
+                        queen.legal_move(self,board[self.position[0]+2][board[self.position[0]].index(self.position)+2])
                         self.has_moved=True
                         done=1
                         break
@@ -2518,7 +2574,7 @@ class queen:
                                 for x in piece_tuple:
                                     if x.chess_replace()==i.coordinate:
                                         x.captured=True
-                                self.position=board[self.position[0]+3][board[self.position[0]].index(self.position)+3]
+                                queen.legal_move(self,board[self.position[0]+3][board[self.position[0]].index(self.position)+3])
                                 self.has_moved=True
                                 done=1
                                 break
@@ -2542,9 +2598,7 @@ class queen:
                                         for x in piece_tuple:
                                             if x.chess_replace()==i.coordinate:
                                                 x.captured=True
-                                        self.position=board[self.position[0]+4][board[self.position[0]].index(self.position)+4]
-                                        print(self.position)
-                                        self.has_moved=True
+                                        queen.legal_move(self,board[self.position[0]+4][board[self.position[0]].index(self.position)+4])
                                         self.has_moved=True
                                         done=1
                                         break
@@ -2572,7 +2626,7 @@ class queen:
                                                 for x in piece_tuple:
                                                     if x.chess_replace()==i.coordinate:
                                                         x.captured=True
-                                                self.position=board[self.position[0]+5][board[self.position[0]].index(self.position)+5]
+                                                queen.legal_move(self,board[self.position[0]+5][board[self.position[0]].index(self.position)+5])
                                                 self.has_moved=True
                                                 done=1
                                                 break
@@ -2606,7 +2660,7 @@ class queen:
                                                             for x in piece_tuple:
                                                                 if x.chess_replace()==i.coordinate:
                                                                     x.captured=True
-                                                            self.position=board[self.position[0]+6][board[self.position[0]].index(self.position)+6]
+                                                            queen.legal_move(self,board[self.position[0]+6][board[self.position[0]].index(self.position)+6])
                                                             self.has_moved=True
                                                             done=1
                                                             break
@@ -2644,7 +2698,7 @@ class queen:
                                                                 for x in piece_tuple:
                                                                     if x.chess_replace()==i.coordinate:
                                                                         x.captured=True
-                                                                self.position=board[self.position[0]+7][board[self.position[0]].index(self.position)+7]
+                                                                queen.legal_move(self,board[self.position[0]+7][board[self.position[0]].index(self.position)+7])
                                                                 self.has_moved=True
                                                                 done=1
                                                                 break
@@ -2656,7 +2710,7 @@ class queen:
                 for x in piece_tuple:
                     if x.chess_replace()==i.coordinate:
                         x.captured=True
-                self.position=board[self.position[0]-1][board[self.position[0]].index(self.position)+1]
+                queen.legal_move(self,board[self.position[0]-1][board[self.position[0]].index(self.position)+1])
                 self.has_moved=True
                 break
 
@@ -2674,7 +2728,7 @@ class queen:
                         for x in piece_tuple:
                             if x.chess_replace()==i.coordinate:
                                 x.captured=True
-                        self.position=board[self.position[0]-2][board[self.position[0]].index(self.position)+2]
+                        queen.legal_move(self,board[self.position[0]-2][board[self.position[0]].index(self.position)+2])
                         self.has_moved=True
                         done=1
                         break
@@ -2694,7 +2748,7 @@ class queen:
                                 for x in piece_tuple:
                                     if x.chess_replace()==i.coordinate:
                                         x.captured=True
-                                self.position=board[self.position[0]-3][board[self.position[0]].index(self.position)+3]
+                                queen.legal_move(self,board[self.position[0]-3][board[self.position[0]].index(self.position)+3])
                                 self.has_moved=True
                                 done=1
                                 break
@@ -2718,7 +2772,7 @@ class queen:
                                         for x in piece_tuple:
                                             if x.chess_replace()==i.coordinate:
                                                 x.captured=True
-                                        self.position=board[self.position[0]-4][board[self.position[0]].index(self.position)+4]
+                                        queen.legal_move(self,board[self.position[0]-4][board[self.position[0]].index(self.position)+4])
                                         self.has_moved=True
                                         done=1
                                         break
@@ -2746,7 +2800,7 @@ class queen:
                                                 for x in piece_tuple:
                                                     if x.chess_replace()==i.coordinate:
                                                         x.captured=True
-                                                self.position=board[self.position[0]-5][board[self.position[0]].index(self.position)+5]
+                                                queen.legal_move(self,board[self.position[0]-5][board[self.position[0]].index(self.position)+5])
                                                 self.has_moved=True
                                                 done=1
                                                 break
@@ -2780,7 +2834,7 @@ class queen:
                                                         for x in piece_tuple:
                                                             if x.chess_replace()==i.coordinate:
                                                                 x.captured=True
-                                                        self.position=board[self.position[0]-6][board[self.position[0]].index(self.position)+6]
+                                                        queen.legal_move(self,board[self.position[0]-6][board[self.position[0]].index(self.position)+6])
                                                         self.has_moved=True
                                                         done=1
                                                         break
@@ -2818,7 +2872,7 @@ class queen:
                                                                 for x in piece_tuple:
                                                                     if x.chess_replace()==i.coordinate:
                                                                         x.captured=True
-                                                                self.position=board[self.position[0]-7][board[self.position[0]].index(self.position)+7]
+                                                                queen.legal_move(self,board[self.position[0]-7][board[self.position[0]].index(self.position)+7])
                                                                 self.has_moved=True
                                                                 done=1
                                                                 break
@@ -2830,7 +2884,7 @@ class queen:
                 for x in piece_tuple:
                     if x.chess_replace()==i.coordinate:
                         x.captured=True
-                self.position=board[self.position[0]+1][board[self.position[0]].index(self.position)-1]
+                queen.legal_move(self,board[self.position[0]+1][board[self.position[0]].index(self.position)-1])
                 self.has_moved=True
                 break
 
@@ -2848,7 +2902,7 @@ class queen:
                         for x in piece_tuple:
                             if x.chess_replace()==i.coordinate:
                                 x.captured=True
-                        self.position=board[self.position[0]+2][board[self.position[0]].index(self.position)-2]
+                        queen.legal_move(self,board[self.position[0]+2][board[self.position[0]].index(self.position)-2])
                         self.has_moved=True
                         done=1
                         break
@@ -2868,7 +2922,7 @@ class queen:
                                 for x in piece_tuple:
                                     if x.chess_replace()==i.coordinate:
                                         x.captured=True
-                                self.position=board[self.position[0]+3][board[self.position[0]].index(self.position)-3]
+                                queen.legal_move(self,board[self.position[0]+3][board[self.position[0]].index(self.position)-3])
                                 self.has_moved=True
                                 done=1
                                 break
@@ -2892,7 +2946,7 @@ class queen:
                                         for x in piece_tuple:
                                             if x.chess_replace()==i.coordinate:
                                                 x.captured=True
-                                        self.position=board[self.position[0]+4][board[self.position[0]].index(self.position)-4]
+                                        queen.legal_move(self,board[self.position[0]+4][board[self.position[0]].index(self.position)-4])
                                         self.has_moved=True
                                         done=1
                                         break
@@ -2920,7 +2974,7 @@ class queen:
                                                 for x in piece_tuple:
                                                     if x.chess_replace()==i.coordinate:
                                                         x.captured=True
-                                                self.position=board[self.position[0]+5][board[self.position[0]].index(self.position)-5]
+                                                queen.legal_move(self,board[self.position[0]+5][board[self.position[0]].index(self.position)-5])
                                                 self.has_moved=True
                                                 done=1
                                                 break
@@ -2954,7 +3008,7 @@ class queen:
                                                         for x in piece_tuple:
                                                             if x.chess_replace()==i.coordinate:
                                                                 x.captured=True
-                                                        self.position=board[self.position[0]+6][board[self.position[0]].index(self.position)-6]
+                                                        queen.legal_move(self,board[self.position[0]+6][board[self.position[0]].index(self.position)-6])
                                                         self.has_moved=True
                                                         done=1
                                                         break
@@ -2992,7 +3046,7 @@ class queen:
                                                                 for x in piece_tuple:
                                                                     if x.chess_replace()==i.coordinate:
                                                                         x.captured=True
-                                                                self.position=board[self.position[0]+7][board[self.position[0]].index(self.position)-7]
+                                                                queen.legal_move(self,board[self.position[0]+7][board[self.position[0]].index(self.position)-7])
                                                                 self.has_moved=True
                                                                 done=1
                                                                 break
@@ -3004,7 +3058,7 @@ class queen:
                 for x in piece_tuple:
                     if x.chess_replace()==i.coordinate:
                         x.captured=True
-                self.position=board[self.position[0]-1][board[self.position[0]].index(self.position)-1]
+                queen.legal_move(self,board[self.position[0]-1][board[self.position[0]].index(self.position)-1])
                 self.has_moved=True
                 break
 
@@ -3022,7 +3076,7 @@ class queen:
                         for x in piece_tuple:
                             if x.chess_replace()==i.coordinate:
                                 x.captured=True
-                        self.position=board[self.position[0]-2][board[self.position[0]].index(self.position)-2]
+                        queen.legal_move(self,board[self.position[0]-2][board[self.position[0]].index(self.position)-2])
                         self.has_moved=True
                         done=1
                         break
@@ -3042,7 +3096,7 @@ class queen:
                                 for x in piece_tuple:
                                     if x.chess_replace()==i.coordinate:
                                         x.captured=True
-                                self.position=board[self.position[0]-3][board[self.position[0]].index(self.position)-3]
+                                queen.legal_move(self,board[self.position[0]-3][board[self.position[0]].index(self.position)-3])
                                 self.has_moved=True
                                 done=1
                                 break
@@ -3066,7 +3120,7 @@ class queen:
                                         for x in piece_tuple:
                                             if x.chess_replace()==i.coordinate:
                                                 x.captured=True
-                                        self.position=board[self.position[0]-4][board[self.position[0]].index(self.position)-4]
+                                        queen.legal_move(self,board[self.position[0]-4][board[self.position[0]].index(self.position)-4])
                                         self.has_moved=True
                                         done=1
                                         break
@@ -3094,7 +3148,7 @@ class queen:
                                                 for x in piece_tuple:
                                                     if x.chess_replace()==i.coordinate:
                                                         x.captured=True
-                                                self.position=board[self.position[0]-5][board[self.position[0]].index(self.position)-5]
+                                                queen.legal_move(self,board[self.position[0]-5][board[self.position[0]].index(self.position)-5])
                                                 self.has_moved=True
                                                 done=1
                                                 break
@@ -3128,7 +3182,7 @@ class queen:
                                                         for x in piece_tuple:
                                                             if x.chess_replace()==i.coordinate:
                                                                 x.captured=True
-                                                        self.position=board[self.position[0]-6][board[self.position[0]].index(self.position)-6]
+                                                        queen.legal_move(self,board[self.position[0]-6][board[self.position[0]].index(self.position)-6])
                                                         self.has_moved=True
                                                         done=1
                                                         break
@@ -3166,7 +3220,7 @@ class queen:
                                                                 for x in piece_tuple:
                                                                     if x.chess_replace()==i.coordinate:
                                                                         x.captured=True
-                                                                self.position=board[self.position[0]-7][board[self.position[0]].index(self.position)-7]
+                                                                legal_move(board[self.position[0]-7][board[self.position[0]].index(self.position)-7])
                                                                 self.has_moved=True
                                                                 done=1
                                                                 break
@@ -5898,6 +5952,88 @@ class queen:
                 return queen.list_replace(coord,6,"g")
             if coord[0] == 7:
                 return queen.list_replace(coord,7,"h")
+
+    def is_pinned(self):
+        if self.colour == "white":
+            check_num = king_1_w.check
+            self.captured = True
+            print("pinned test")
+            turn()
+            if king_1_w.check > check_num:
+                self.captured = False
+                print("im pinned")
+                turn()
+                return True
+            else:
+                self.captured = False
+                print("im not pinned")
+                turn()
+                return False
+
+        elif self.colour == "black":
+            check_num = king_1_b.check
+            self.captured = True
+            print("pinned test")
+            turn()
+            if king_1_b.check > check_num:
+                self.captured = False
+                print("im pinned")
+                turn()
+                return True
+            else:
+                self.captured = False
+                print("im not pinned")
+                turn()
+                return False
+
+    def legal_move(self,newpizish):
+        if self.colour == "white":
+            print("legal move test")
+            if king_1_w.check == 0:
+                self.position = newpizish
+                print("king not in check all moves legal!")
+                turn()
+                whos_turn = "black"
+            elif king_1_w.check > 0:
+                previous_postion = self.position
+                self.position = newpizish
+                print("king in check. seeing if move is legal")
+                turn()
+                if king_1_w.check == 0:
+                    print("move was legal")
+                    whos_turn = "black"
+                    return True
+                else:
+                    self.position = previous_postion
+                    self.has_moved = False
+                    print("move was illegal")
+                    turn()
+                    whos_turn = "white"
+
+        if self.colour == "black":
+            print("legal move test")
+            if king_1_b.check == 0:
+                self.position = newpizish
+                print("king not in check all moves legal!")
+                turn()
+                whos_turn = "white"
+            elif king_1_b.check > 0:
+                previous_postion = self.position
+                self.position = newpizish
+                print("king in check. seeing if myn move is legal")
+                turn()
+                if king_1_b.check == 0:
+                    print("move was legal")
+                    whos_turn = "white"
+                    return True
+                else:
+                    self.position = previous_postion
+                    self.has_moved = False
+                    print("move was illegal")
+                    turn()
+                    whos_turn = "black"
+
+
 
 class rook:
 
@@ -8681,10 +8817,7 @@ class rook:
                 return rook.list_replace(coord,6,"g")
             if coord[0] == 7:
                 return rook.list_replace(coord,7,"h")
-
 class bishop:
-
-
     def __init__(self,position,has_moved,captured,piece_type,colour):
         self.position = position
         self.has_moved = has_moved
@@ -11466,7 +11599,6 @@ class bishop:
                 return rook.list_replace(coord,6,"g")
             if coord[0] == 7:
                 return rook.list_replace(coord,7,"h")
-
 class king:
 
     def __init__(self,position,has_moved,captured,piece_type,colour):
@@ -11477,7 +11609,7 @@ class king:
         self.piece_type=piece_type
         self.selected=False
         self.colour=colour
-        self.check=False
+        self.check=0
         self.potential_attack_list = []
         self.potential_move_list = []
         self.potential_move_up_coordinate = []
@@ -11844,14 +11976,13 @@ class king:
             if coord[0] == 7:
                 return king.list_replace(coord,7,"h")
 
-    def am_I_in_check(self):
+    def am_i_in_check(self):
+        self.check = 0
         for piece in piece_tuple:
             if self.chess_replace() in piece.potential_attack_list:
-                self.check = True
-                break
-            else:
-                self.check = False
-
+                self.check += 1
+        print(self.check)
+        return self.check
 class knight:
 
     def __init__(self,position,has_moved,captured,piece_type,colour):
@@ -12960,7 +13091,7 @@ def turn():
             piece.potential_attack_up_left()
             piece.potential_attack_down_right()
             piece.potential_attack_down_left()
-            piece.am_I_in_check()
+            piece.am_i_in_check()
 
 
 
@@ -13259,15 +13390,16 @@ def turn():
             elif coor.occupied_by == "b_knight":
                 rank_8_gui[index]="kn"
 
-    print(whos_turn)
-    print("8",rank_8_gui)
-    print("7",rank_7_gui)
-    print("6",rank_6_gui)
-    print("5",rank_5_gui)
-    print("4",rank_4_gui)
-    print("3",rank_3_gui)
-    print("2",rank_2_gui)
-    print("1",rank_1_gui)
-    return (file_axis)
+    return(
+    print(whos_turn),
+    print("8",rank_8_gui),
+    print("7",rank_7_gui),
+    print("6",rank_6_gui),
+    print("5",rank_5_gui),
+    print("4",rank_4_gui),
+    print("3",rank_3_gui),
+    print("2",rank_2_gui),
+    print("1",rank_1_gui),
+    print(file_axis))
 
-print(turn())
+turn()
